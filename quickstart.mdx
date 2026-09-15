@@ -1,0 +1,86 @@
+---
+title: "Get Started with Strautomator: Connect and Automate"
+sidebarTitle: "Quick Start"
+description: "Connect your Strava account, create your first automation, and let Strautomator update your activities automatically — all in a few minutes."
+---
+
+Getting started with Strautomator takes only a few minutes. By the end of this guide you'll have a live automation that modifies your Strava activities the moment they sync. No coding required — just connect, configure, and go.
+
+<Steps>
+
+### Connect with Strava
+
+Go to [strautomator.com](https://strautomator.com) and click the **Connect with Strava** button on the home page.
+
+You'll be redirected to Strava's authorization page. Strautomator requests the following permissions:
+
+- **Read and write your activities** — to evaluate conditions against your activity data and apply actions such as renaming or updating the description
+- **Read your profile** — to determine your unit preferences (metric or imperial) and gear list
+- **Update your profile** — to push estimated FTP values back to your Strava profile
+
+Click **Authorize** to grant access. Strava handles your credentials — Strautomator never sees your Strava password.
+
+### Explore your Dashboard
+
+After authorizing, you land on your **Dashboard**. Here you'll see:
+
+- **Last automated activities** — a table of recent activities that were processed by your automations, along with which automation triggered and what changed.
+- **Personal records** — a summary of your all-time bests across distances, speeds, and other metrics for your sport types.
+
+If you haven't created any automations yet, the dashboard shows a prompt to create your first one. You can also reach your automations, gear configurations, and account settings from the top navigation.
+
+### Create your first automation
+
+Navigate to **Automations** in the top menu, then click the **+** button to open the automation editor.
+
+Fill in the automation details:
+
+1. **Name your automation** — give it a clear, memorable title, such as "Morning Ride Prefix".
+2. **Add a condition** — click **Add condition** and choose a property to check. For example:
+   - Property: **Sport type**
+   - Operator: **is**
+   - Value: **Ride**
+3. **Add an action** — click **Add action** and choose what Strautomator should do when the condition matches. For example:
+   - Action type: **Prepend to activity name**
+   - Value: `Morning `
+
+   This prepends "Morning " to the name of every Ride activity automatically.
+
+4. **Save** — click **Save automation**. Your automation is now active.
+
+<Info>
+  You can combine multiple conditions using AND or OR logic, and stack as many actions as you need in a single automation. Visit the [Automations overview](/automations/overview) for the full list of conditions, actions, and dynamic tags.
+</Info>
+
+### Test with a recent activity
+
+You don't have to wait for your next workout to verify your automation works. Navigate to **Activities → Recent activities** to see your latest Strava activities. Click the **Process** button next to any activity to run your automations against it immediately.
+
+Strautomator shows you exactly which automations triggered and what fields were updated — without permanently affecting activities that don't match your conditions.
+
+<Note>
+  When you record a real activity, Strautomator typically picks it up within a few minutes of it being saved to Strava. If you don't see the activity processed right away, wait a moment and refresh your Dashboard.
+</Note>
+
+### You're all set
+
+Your automation is live. From here, every new Strava activity that matches your conditions will be processed automatically — no action required on your part.
+
+</Steps>
+
+## What to explore next
+
+<CardGroup cols={2}>
+  <Card title="Automations overview" icon="bolt" href="/automations/overview">
+    Learn about every condition, action, and dynamic tag available for building automations.
+  </Card>
+  <Card title="GearWear" icon="wrench" href="/gear/overview">
+    Track component mileage and get alerts when it's time to replace your chain, tyres, or shoes.
+  </Card>
+  <Card title="Free vs. PRO" icon="star" href="/free-vs-pro">
+    Compare plan limits and see what PRO unlocks, including AI content and Garmin integration.
+  </Card>
+  <Card title="Calendar export" icon="calendar" href="/features/calendar">
+    Subscribe to a live feed of your activities and club events from any calendar app.
+  </Card>
+</CardGroup>

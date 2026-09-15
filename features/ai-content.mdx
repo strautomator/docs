@@ -1,0 +1,103 @@
+---
+title: "AI-Generated Activity Names, Poems, and Insights (PRO)"
+sidebarTitle: "AI Content"
+description: "Auto-generate creative activity names, poems, and training insights with AI — choose from Claude, Gemini, Grok, GPT, and more providers."
+---
+
+Strautomator integrates with leading AI language models to generate creative, context-aware content for your Strava activities. Instead of typing "Afternoon Ride" for the hundredth time, let an AI craft a name that captures the weather, the effort, and the route — automatically, every time you sync.
+
+<Info>
+  AI content generation is a **PRO** feature. Free accounts can use AI actions on up to 10% of processed activities with access to smaller models. PRO accounts run AI on up to 99% of activities with access to the most advanced models.
+</Info>
+
+## AI actions
+
+Add any of the following actions in the automation editor to generate AI content for your activities:
+
+<CardGroup cols={2}>
+  <Card title="AI Name" icon="pen-nib">
+    Generates a creative, context-aware activity name. Uses sport type, start time, distance, speed, heart rate, power, weather, and location as context.
+  </Card>
+  <Card title="AI Poem / Description" icon="feather">
+    Writes a short poem or descriptive paragraph and sets it as the activity description. Great for sharing activities that tell a story.
+  </Card>
+  <Card title="AI Insights" icon="brain">
+    Writes a training analysis — observations about your effort, pacing, and performance relative to recent activities — and saves it to your private notes. Visible only to you.
+  </Card>
+  <Card title="AI Auto-Process" icon="wand-magic-sparkles">
+    Sends the full activity data through an AI pipeline to auto-fill multiple fields at once. Useful when you want comprehensive AI enrichment without building individual actions.
+  </Card>
+</CardGroup>
+
+## Choosing an AI provider
+
+Strautomator supports multiple AI providers. To select your preferred provider, go to **Account → AI provider**:
+
+| Provider | Model family |
+|---|---|
+| **Auto** (default) | Strautomator picks the best available provider |
+| Anthropic | Claude |
+| DeepSeek | DeepSeek |
+| Gemini | Gemini |
+| Mistral | Mistral |
+| OpenAI | GPT |
+| SpaceX AI | Grok |
+| Z.ai | GLM |
+
+When set to **Auto**, Strautomator selects the provider based on availability and the nature of the request. Set a specific provider if you have a preference for a particular model's writing style.
+
+<Note>
+  Choosing a specific AI provider is a PRO preference. Free accounts use the Auto setting.
+</Note>
+
+## Tone and humour style
+
+Each AI action can use a random tone or a style you specify. You can set a default humour/tone in your account preferences, or choose from the options available in the automation action editor:
+
+- **Random** — varies the style each time
+- **Preset styles** — a curated list of tones (e.g., epic, motivational, poetic, deadpan)
+- **Custom prompt** — supply your own style instruction, such as "Write like a Victorian explorer" or "Keep it under 10 words and make it punny"
+
+## Adding AI actions to an automation
+
+<Steps>
+  <Step title="Open the automation editor">
+    Go to **Automations** and create a new automation or edit an existing one.
+  </Step>
+  <Step title="Add an AI action">
+    In the **Actions** section, click **Add action** and select one of the AI options: **Generate the activity name with AI**, **Generate a poem with AI**, **AI insights**, or **AI Auto-Process**.
+  </Step>
+  <Step title="Configure the action">
+    Choose a humour/tone style or leave it on **Random**. Optionally enter a custom prompt to guide the AI's voice.
+  </Step>
+  <Step title="Save and test">
+    Save the automation. Use **Activities → AI Generator** to preview the output on an existing activity before your next real ride.
+  </Step>
+</Steps>
+
+<Tip>
+  Combine an AI Name action with a condition — for example, **distance is greater than 50 km** — so AI-generated names only appear on your longer rides. This avoids spending AI quota on short commutes or warm-up spins.
+</Tip>
+
+## Testing AI output: the AI Generator playground
+
+Before your next activity, you can preview what Strautomator's AI would generate for any past activity:
+
+<Steps>
+  <Step title="Open the AI Generator">
+    Navigate to **Activities → AI Generator** (also called "Activity fortune").
+  </Step>
+  <Step title="Enter an activity">
+    Paste a Strava activity URL or ID into the input field.
+  </Step>
+  <Step title="Choose provider and tone">
+    Select an AI provider and a humour style from the dropdowns. Optionally enter a custom prompt.
+  </Step>
+  <Step title="Preview the output">
+    Click **Try it!** to see the generated activity name and poem. Experiment with different providers and tones to find your preferred style.
+  </Step>
+</Steps>
+
+<Note>
+  The AI Generator playground is for previewing only — it does not update the activity on Strava. Use an automation with a **Process** action on the Recent Activities page to actually apply the generated content.
+</Note>

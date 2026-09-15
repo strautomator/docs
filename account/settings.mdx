@@ -1,0 +1,189 @@
+---
+title: "Strautomator Account Settings and Preferences Guide"
+sidebarTitle: "Settings"
+description: "Manage your Strautomator profile, units, language, weather provider, AI settings, privacy options, and all other account preferences."
+---
+
+Your Account settings page is the central place to control how Strautomator looks, behaves, and processes your activities. Changes you save here apply immediately across all your automations and GearWear configurations.
+
+## Profile
+
+The Profile section displays the information Strautomator holds about your account and lets you update key details.
+
+<Accordion title="Display Name">
+  Your display name is pulled from Strava when you first connect. You can change it here at any time — it appears in shared automations and in the Strautomator interface. The name change does not affect your Strava profile.
+</Accordion>
+
+<Accordion title="Email Address">
+  Add or change your email address to receive notification summaries and important account alerts. When you enter a new address and save, Strautomator sends a confirmation link to that address. Click the link in the email to verify and activate it.
+</Accordion>
+
+<Accordion title="Strava Profile Link">
+  A read-only link to your public Strava profile. Use this to quickly verify which Strava account is connected.
+</Accordion>
+
+<Accordion title="Measurement Units">
+  Choose between **Metric** (kilometres, kilograms) and **Imperial** (miles, pounds). This setting controls how distances and weights are displayed throughout the app and how dynamic tags format values in your activity descriptions.
+</Accordion>
+
+<Accordion title="Registration Date and Account ID">
+  Your registration date and unique account ID are displayed for reference. Quote your account ID when contacting support so the team can locate your account quickly.
+</Accordion>
+
+---
+
+## Preferences
+
+The Preferences section gives you fine-grained control over language, processing behaviour, privacy, and integrations.
+
+<Note>
+  Settings marked **PRO** are only available on the Strautomator PRO plan. Upgrade on the Billing page to unlock them.
+</Note>
+
+### Display & Localisation
+
+<Accordion title="Language">
+  Choose the language used throughout the Strautomator interface. Eleven languages are supported:
+
+  | Code | Language   |
+  |------|------------|
+  | `en` | English    |
+  | `de` | German     |
+  | `es` | Spanish    |
+  | `fr` | French     |
+  | `it` | Italian    |
+  | `lt` | Lithuanian |
+  | `nl` | Dutch      |
+  | `pl` | Polish     |
+  | `pt` | Portuguese |
+  | `se` | Swedish    |
+  | `sk` | Slovak     |
+
+  The language setting affects the UI only — dynamic tag output in activity descriptions follows the locale of your Strava account.
+</Accordion>
+
+<Accordion title="Temperature Unit">
+  Select **Celsius** or **Fahrenheit** for weather-based dynamic tags (e.g., `${weather.temperature}`) and display throughout the app.
+</Accordion>
+
+<Accordion title="Wind Speed Unit">
+  Select the unit used when weather tags include wind speed:
+
+  - **m/s** — metres per second
+  - **km/h** — kilometres per hour
+  - **mph** — miles per hour
+</Accordion>
+
+### Processing Behaviour
+
+<Accordion title="Delayed Processing">
+  When enabled, Strautomator waits a few minutes after a new activity syncs from Strava before running your automations. This is useful if you typically edit an activity's title, description, or sport type in the Strava app immediately after saving — the delay ensures your manual edits are preserved before automations run.
+</Accordion>
+
+<Accordion title="Yearly Counter Reset">
+  If any of your automations use a counter condition, you can choose a date each year on which all counters reset automatically. Set the day and month (for example, 1 January or 1 September for a sports season) and Strautomator handles the reset without any manual intervention.
+</Accordion>
+
+<Accordion title="Omit Tag Suffixes">
+  By default, dynamic tags include unit suffixes in their output — for example, `42.2 km` or `158 bpm`. Enable this option to strip the unit suffix and output the raw number only (e.g., `42.2` or `158`). Useful when you are building custom formatting inside the tag string itself.
+</Accordion>
+
+### Privacy & Security
+
+<Accordion title="Privacy Mode">
+  Privacy mode applies three protections simultaneously:
+
+  - **Anonymised sharing** — your real name is replaced with a placeholder in any automation you share publicly via the Strautomator recipe library.
+  - **Personal records disabled** — Strautomator stops tracking and displaying personal records for your activities.
+  - **GPS metadata discarded** — location metadata is stripped from activity data before it is stored or processed, reducing the amount of geographic information Strautomator holds.
+
+  Enable this if you share automations publicly but do not want your identity or location history exposed.
+</Accordion>
+
+### GearWear
+
+<Accordion title="Gear Tracking Delay">
+  Choose how long Strautomator waits before adding a new activity's distance to your GearWear component totals. Options are **1 day**, **2 days**, or **3 days**. A delay is helpful if you frequently edit gear assignments in Strava after recording an activity — Strautomator will use the finalised assignment rather than the one present at sync time.
+</Accordion>
+
+### PRO-Only Settings
+
+<Note>
+  The following settings are available exclusively on the PRO plan.
+</Note>
+
+<Accordion title="FTP Auto-Update (PRO)">
+  When enabled, Strautomator periodically analyses your recent power-meter rides and automatically updates your Functional Threshold Power (FTP) value in Strava. You receive an in-app notification each time an update is made. Disable this if you prefer to set your FTP manually.
+</Accordion>
+
+<Accordion title="Weather Provider (PRO)">
+  Choose which weather data source Strautomator uses when resolving weather-based dynamic tags and conditions. Available providers:
+
+  | Provider | Notes |
+  |---|---|
+  | **Open-Meteo** | Free, no API key required |
+  | **OpenWeatherMap** | Widely used; requires your own API key |
+  | **Tomorrow.io** | High-resolution forecasts; requires API key |
+  | **Visual Crossing** | Historical weather specialist; requires API key |
+  | **WeatherAPI** | Accurate current conditions; requires API key |
+
+  If you choose a provider that requires an API key, enter your key in the field that appears after selecting the provider.
+</Accordion>
+
+<Accordion title="Battery Alerts (PRO)">
+  Strautomator can monitor the battery level reported by your sensors (heart rate monitors, power meters, GPS devices). Enable this setting and choose your alert thresholds:
+
+  - **Low** — an in-app notification when a sensor battery drops to a low level.
+  - **Critical** — an urgent in-app notification when a sensor battery is critically low.
+
+  This helps you avoid missing data mid-ride due to a dead sensor.
+</Accordion>
+
+<Accordion title="AI Insights (PRO)">
+  Opt in to allow Strautomator to use your activity data to generate AI-powered insights and suggestions. When enabled, relevant activity details are sent to the AI provider you select. Disable this if you prefer your data not to leave Strautomator's infrastructure.
+</Accordion>
+
+<Accordion title="AI Provider (PRO)">
+  When AI features are enabled, choose which large-language-model provider powers them:
+
+  | Option | Description |
+  |---|---|
+  | **Auto** | Strautomator picks the best available provider |
+  | **Anthropic** | Claude models |
+  | **DeepSeek** | DeepSeek models |
+  | **Gemini** | Google Gemini models |
+  | **Mistral** | Mistral AI models |
+  | **OpenAI** | GPT models |
+  | **SpaceX AI** | Grok models via xAI |
+  | **Z.ai** | Z.ai models |
+</Accordion>
+
+<Accordion title="Backlink Frequency (PRO)">
+  Strautomator can append a short backlink to activity descriptions it edits. Control how often this happens:
+
+  | Option | Behaviour |
+  |---|---|
+  | **100%** | Backlink added to every processed activity |
+  | **50%** | Backlink added to roughly half of processed activities |
+  | **20%** | Backlink added to roughly one in five activities |
+  | **No links** | Backlink never added |
+
+  Reducing the frequency keeps descriptions clean while still crediting Strautomator occasionally.
+</Accordion>
+
+<Accordion title="Hashtag Preference">
+  Choose how the Strautomator backlink is formatted when it is added to an activity description:
+
+  - **#hashtag** — appends `#strautomator` as a searchable hashtag.
+  - **URL** — appends a clickable `https://strautomator.com` link.
+</Accordion>
+
+---
+
+## Saving Changes
+
+After updating any setting, click **Save** at the bottom of the relevant section. Settings take effect on the next activity Strautomator processes.
+
+<Tip>
+  If you are unsure which settings affect a specific automation behaviour, check the automation's own conditions and actions first — some overrides (like unit display) live at the automation level, not the account level.
+</Tip>

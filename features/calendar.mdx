@@ -1,0 +1,118 @@
+---
+title: "Subscribe to Your Live Strava Activity Calendar Feed"
+sidebarTitle: "Calendar"
+description: "Export your Strava activities, club events, and GearWear history as a subscribable iCal feed for Google Calendar, Apple Calendar, or Outlook."
+---
+
+Strautomator generates a live iCal (ICS) feed of your Strava activities, upcoming club events, and GearWear component-change reminders. Paste the generated URL into any calendar app that supports webcal subscriptions — no manual exports or repeated downloads needed.
+
+<Note>
+  Your calendar feed refreshes automatically. Once you subscribe, new activities and events appear in your calendar app without any action on your part.
+</Note>
+
+## What gets exported
+
+Use the **Calendar** page to choose exactly what appears in your feed.
+
+**Type** — pick one export mode:
+
+| Option | What it includes |
+|---|---|
+| Everything | Activities, club events, and GearWear changes |
+| Only activities | Your personal Strava activities |
+| Only club events | Upcoming events from clubs you've joined |
+| Only gear history | GearWear component-change and maintenance events |
+
+**Sport types** — filter to All sports, Rides only, or Runs only.
+
+**Additional options:**
+
+- **Exclude commutes** — omit activities flagged as commutes on Strava
+- **Only events I have joined** — show club events you've RSVPed to, hide the rest
+- **Include events outside my country** — broaden club event results internationally
+- **Add event links on descriptions** — append a direct Strava link to each calendar event description
+- **Compact descriptions** — shorten the detail text for cleaner calendar views
+
+**Date range** — control how far back and forward the feed reaches (applies to activities; club events always look forward).
+
+## Plan limits
+
+<CardGroup cols={2}>
+  <Card title="Free plan" icon="calendar">
+    - Up to **90 days** of past activities
+    - Up to **5 days** of future club events
+    - Default event template (not customizable)
+  </Card>
+  <Card title="PRO plan" icon="calendar-star">
+    - Up to **10 years** of past activities
+    - Up to **1 year** of future club events
+    - Custom event summary and description templates
+  </Card>
+</CardGroup>
+
+## How to subscribe
+
+<Tabs>
+  <Tab title="Google Calendar">
+    <Steps>
+      <Step title="Copy your calendar URL">
+        Go to the **Calendar** page in Strautomator. Configure your export options, then copy the URL shown in the text field (it starts with `https://`).
+      </Step>
+      <Step title="Open Google Calendar settings">
+        In Google Calendar, click the **+** icon next to **Other calendars** in the left sidebar, then select **From URL**.
+      </Step>
+      <Step title="Paste and add">
+        Paste the URL into the **URL of calendar** field and click **Add calendar**. Google will import the feed — it may take a few minutes to appear.
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="Apple Calendar">
+    <Steps>
+      <Step title="Copy your calendar URL">
+        Go to the **Calendar** page in Strautomator and copy the webcal URL displayed below the **Subscribe to calendar** button.
+      </Step>
+      <Step title="Open a new calendar subscription">
+        In Apple Calendar (macOS), go to **File → New Calendar Subscription**. On iOS, go to **Settings → Calendar → Accounts → Add Account → Other → Add Subscribed Calendar**.
+      </Step>
+      <Step title="Paste and subscribe">
+        Paste the URL and tap or click **Subscribe**. Accept the default refresh interval or change it to suit your needs.
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="Outlook">
+    <Steps>
+      <Step title="Copy your calendar URL">
+        Go to the **Calendar** page in Strautomator and copy the feed URL.
+      </Step>
+      <Step title="Add a calendar from the internet">
+        In Outlook on the web, go to **Calendar → Add calendar → Subscribe from web**. In the Outlook desktop app, go to **File → Account Settings → Internet Calendars → New**.
+      </Step>
+      <Step title="Paste and save">
+        Paste your URL, give the calendar a name, and click **Import** or **Add**.
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>
+
+## Custom templates (PRO)
+
+PRO users can customize how each activity appears in the calendar feed using dynamic tags — the same `${tags}` syntax used in automation actions.
+
+On the **Calendar** page, scroll down to the **Activity template** section:
+
+- **Event summary** — the calendar event title (e.g., `${name} — ${distance}`)
+- **Event details** — the event body/description (e.g., `${distance} in ${movingTime} | ${weather}`)
+
+Type `$` to trigger the tag autocomplete menu. After saving, the new template applies on the next calendar refresh.
+
+<Tip>
+  Use `${name}` to keep your original Strava activity name in the summary, then add metrics like `${elevationGain}` or `${avgSpeed}` in the details field for a quick workout overview in your calendar.
+</Tip>
+
+## Resetting your calendar URL
+
+If you want to invalidate your current feed — for example, if you've shared the URL and want to revoke access — click **Reset URL token** on the Calendar page.
+
+<Warning>
+  Resetting your URL token generates a new calendar link. Any calendar apps subscribed to the old URL will stop receiving updates. You'll need to resubscribe with the new URL in each app.
+</Warning>

@@ -1,0 +1,116 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "name": "Strautomator",
+  "theme": "almond",
+  "logo": {
+    "light": "https://media.brand.dev/256bdeac-6acd-4cd2-a3e0-a74460866520.svg",
+    "dark": "https://media.brand.dev/256bdeac-6acd-4cd2-a3e0-a74460866520.svg"
+  },
+  "favicon": "/favicon.png",
+  "colors": {
+    "primary": "#ff8f00",
+    "light": "#3c322d",
+    "dark": "#d5d3d2"
+  },
+  "navbar": {
+    "primary": {
+      "type": "github",
+      "href": "https://github.com/strautomator"
+    }
+  },
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Guide",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "quickstart",
+              "free-vs-pro"
+            ]
+          },
+          {
+            "group": "Automations",
+            "pages": [
+              "automations/overview",
+              "automations/conditions",
+              "automations/actions",
+              "automations/dynamic-tags",
+              "automations/sharing",
+              "automations/history"
+            ]
+          },
+          {
+            "group": "Gear Tracking",
+            "pages": [
+              "gear/overview",
+              "gear/components",
+              "gear/battery-tracker"
+            ]
+          },
+          {
+            "group": "Features",
+            "pages": [
+              "features/calendar",
+              "features/upcoming-events-map",
+              "features/personal-records",
+              "features/ftp-estimator",
+              "features/ai-content",
+              "features/activity-debug"
+            ]
+          },
+          {
+            "group": "Integrations",
+            "pages": [
+              "integrations/garmin-wahoo",
+              "integrations/spotify-lastfm",
+              "integrations/weather",
+              "integrations/webhooks"
+            ]
+          },
+          {
+            "group": "Account & Billing",
+            "pages": [
+              "account/settings",
+              "account/notifications",
+              "account/data-export",
+              "account/billing",
+              "account/close-account"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "FAQ",
+        "groups": [
+          {
+            "group": "Help",
+            "pages": [
+              "faq/general",
+              "faq/automations",
+              "faq/gear",
+              "faq/billing",
+              "faq/troubleshooting"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "description": "Strautomator documentation and support center.",
+  "appearance": {
+    "default": "dark",
+    "strict": true
+  },
+  "background": {
+    "decoration": "gradient"
+  },
+  "metadata": {
+    "timestamp": false
+  },
+  "markdown": {
+    "schema": true
+  }
+}

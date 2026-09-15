@@ -1,0 +1,104 @@
+---
+title: "View Automation History and Reprocess Past Activities"
+sidebarTitle: "History"
+description: "See which automations fired on each activity, what changed, filter by date range, reprocess individual activities, and run batch sync on historical data."
+---
+
+Strautomator keeps a detailed log of every activity it has processed and every automation that fired. The Automation History page gives you a searchable record you can use to verify that your automations are working correctly, audit past changes, or troubleshoot unexpected results.
+
+## Accessing automation history
+
+Go to **Automations → History** in the main navigation. The history page shows a table of processed activities with the date, activity name, and which automations triggered on each one.
+
+### Filtering by date range
+
+Use the **From date** and **To date** pickers at the top of the page to narrow the results to a specific window, then click **Search activities**.
+
+Strautomator retains processed activity records for up to 2 years, so you can search your full history within that window regardless of your plan.
+
+<Note>
+  Upgrade to PRO to run batch sync on activities older than 30 days.
+</Note>
+
+---
+
+## Reprocessing a single activity
+
+If you recently changed an automation and want to apply it to an activity that has already been processed, you can reprocess it manually:
+
+<Steps>
+  <Step title="Go to Recent Activities">
+    Navigate to **Activities → Recent** in the main navigation. Strautomator shows your most recent Strava activities.
+  </Step>
+  <Step title="Click Process">
+    Find the activity you want to reprocess and click the **Process** button. Strautomator re-evaluates all your enabled automations against that activity and applies any matching actions.
+  </Step>
+  <Step title="Check the result">
+    Open the activity on Strava to confirm the changes, or return to **Automations → History** and search for the activity to see which automations fired.
+  </Step>
+</Steps>
+
+<Warning>
+  Reprocessing applies your current automations as they exist today. If your automations have changed since the activity was first processed, the new run may produce different results — including overwriting names or descriptions that were already set.
+</Warning>
+
+---
+
+## Debugging an activity
+
+The Recent Activities page includes a **Debug** button alongside each activity. Clicking it shows you the full raw data Strautomator received from Strava for that activity — every field and value exactly as the system sees them.
+
+Use the debug view to:
+
+- Confirm that a specific field (e.g., `speedAvg`, `elevationGain`, `gear`) has the value you expect.
+- Understand why a condition matched or did not match.
+- Copy exact field values to use when building new conditions.
+
+This is the most reliable way to troubleshoot an automation that isn't firing when you think it should.
+
+---
+
+## Batch sync: run automations on historical activities
+
+Batch sync lets you retroactively run all your current automations on a range of past Strava activities. This is useful when you:
+
+- Set up automations for the first time and want them applied to your existing activity history.
+- Change an automation and want to backfill the new behavior.
+- Import a large number of past activities and want them processed automatically.
+
+### How to start a batch sync
+
+<Steps>
+  <Step title="Go to Batch Sync">
+    Navigate to **Activities → Batch Sync**.
+  </Step>
+  <Step title="Accept the risk acknowledgment">
+    Read the warning carefully. Batch sync is **not reversible** — it applies your current automations to all matched activities, potentially overwriting names, descriptions, gear assignments, and other fields that were previously set. Check the acknowledgment box to continue.
+  </Step>
+  <Step title="Configure filters">
+    Narrow which activities to process using the available filters:
+    - **Date range** — choose a From and To date.
+    - **Activity privacy** — filter by public, followers-only, or only-me activities.
+    - **Sport type** — limit to a specific sport.
+  </Step>
+  <Step title="Click Batch process activities">
+    Start the job. Strautomator queues the activities and processes them in small batches. Depending on the number of activities, it can take anywhere from a few minutes to several hours.
+  </Step>
+  <Step title="Monitor progress in History">
+    Once the job is queued, Strautomator redirects you to **Automations → History** where you can watch activities appear as they are processed.
+  </Step>
+</Steps>
+
+### Batch sync limits and notes
+
+<Info>
+  - You can trigger batch sync **once every 24 hours**.
+  - **Free users** can process activities up to 30 days in the past.
+  - **PRO users** can process activities up to 10 years in the past.
+  - Weather tags may not be available for activities older than approximately one week, depending on your location and weather provider.
+  - If you have Garmin or Wahoo integration, upload the corresponding FIT files first (via **Activities → Upload FIT files**) so that Garmin/Wahoo conditions and tags work correctly on historical activities.
+</Info>
+
+<Warning>
+  There is no way to stop or undo a batch sync once it starts. Double-check your automations for misconfigured conditions before triggering a batch run.
+</Warning>

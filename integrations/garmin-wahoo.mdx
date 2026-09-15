@@ -1,0 +1,124 @@
+---
+title: "Connect Garmin and Wahoo for Richer Automation Data"
+sidebarTitle: "Garmin & Wahoo"
+description: "Link your Garmin or Wahoo account to unlock advanced automation conditions, richer activity data from FIT files, and the battery tracker."
+---
+
+Connecting Garmin or Wahoo gives Strautomator access to the raw FIT file that your device uploads after each activity. That file contains training metrics, sensor readings, and device data that Strava never exposes — all of which become available as automation conditions and dynamic tags inside your recipes.
+
+<Note>
+  Garmin and Wahoo integration is a **PRO-only feature**. Upgrade to PRO to enable either or both integrations.
+</Note>
+
+## Why connect Garmin or Wahoo?
+
+Strava receives summarised data from your device. The FIT file on your Garmin or Wahoo account holds far more — things like Training Stress Score, aerobic training effect, per-sensor battery status, and the exact workout name you set on your device. Once linked, Strautomator downloads that FIT file every time an activity is processed and makes all of it available in your automations.
+
+<CardGroup cols={2}>
+  <Card title="Extra automation conditions" icon="sliders">
+    Build rules based on TSS, training load, intensity factor, sport profile, connected device, and more — data that is invisible in standard Strava automations.
+  </Card>
+  <Card title="Battery tracker" icon="battery-half">
+    Strautomator reads sensor battery status directly from your FIT files and alerts you when a device is running low. See the [Battery Tracker](/gear/battery-tracker) page for full details.
+  </Card>
+  <Card title="Richer dynamic tags" icon="tag">
+    Insert Garmin or Wahoo data into activity names and descriptions using `${garmin.workoutName}`, `${garmin.tss}`, and similar tags.
+  </Card>
+  <Card title="Retroactive FIT uploads" icon="upload">
+    Even without a live connection, PRO users can upload a ZIP of FIT files via **Activities → FIT Upload** to enrich past activities.
+  </Card>
+</CardGroup>
+
+## How to connect Garmin
+
+<Steps>
+  <Step title="Open your Account page">
+    Click your avatar in the top-right corner of the Strautomator dashboard and select **Account**.
+  </Step>
+  <Step title="Go to Linked Accounts">
+    Scroll to the **Linked Accounts** section.
+  </Step>
+  <Step title="Link Garmin">
+    Click **Link Garmin**. You will be redirected to Garmin Connect.
+  </Step>
+  <Step title="Authorize on Garmin Connect">
+    Sign in to your Garmin Connect account if prompted, then click **Agree** to grant Strautomator permission to access your activity files.
+  </Step>
+  <Step title="Return to Strautomator">
+    After authorization, Garmin redirects you back to Strautomator. Your Garmin account now appears as linked.
+  </Step>
+</Steps>
+
+## How to connect Wahoo
+
+<Steps>
+  <Step title="Open your Account page">
+    Click your avatar and select **Account**.
+  </Step>
+  <Step title="Go to Linked Accounts">
+    Scroll to the **Linked Accounts** section.
+  </Step>
+  <Step title="Link Wahoo">
+    Click **Link Wahoo**. You will be redirected to the Wahoo authorization page.
+  </Step>
+  <Step title="Authorize on Wahoo">
+    Sign in to your Wahoo account if prompted, then approve the connection.
+  </Step>
+  <Step title="Return to Strautomator">
+    After authorization, Wahoo redirects you back to Strautomator. Your Wahoo account now appears as linked.
+  </Step>
+</Steps>
+
+## How to disconnect
+
+To remove a linked Garmin or Wahoo account, go to **Account → Linked Accounts** and click **Unlink** next to the integration. Strautomator immediately removes the connection and will no longer download FIT files from that account. Your data on Garmin Connect or Wahoo is not affected.
+
+## Extra data available from Garmin
+
+When a Garmin FIT file is downloaded, Strautomator extracts the following fields and makes them available as automation conditions and tags:
+
+| Field | Condition key | Description |
+|---|---|---|
+| Device identifier | `garmin.sensor` | Matches against the device identifier string (includes brand, product name, and serial number) |
+| Primary benefit | `garmin.primaryBenefit` | Garmin's categorization of the training benefit |
+| Activity name | `garmin.name` | The name of the activity as set on the Garmin device |
+| Sport profile | `garmin.sportProfile` | The sport profile used on the device |
+| Training Stress Score | `garmin.tss` | TSS value calculated by Garmin |
+| Training load | `garmin.trainingLoad` | Cumulative training load from the activity |
+| Intensity factor | `garmin.intensityFactor` | Ratio of normalized power to FTP |
+| Aerobic training effect | `garmin.aerobicTrainingEffect` | Score from 1.0 to 5.0 |
+| Anaerobic training effect | `garmin.anaerobicTrainingEffect` | Score from 1.0 to 5.0 |
+| Pedal smoothness | `garmin.pedalSmoothness` | Average left/right pedal smoothness (%) |
+| Pedal torque effectiveness | `garmin.pedalTorqueEffect` | Average left/right torque effectiveness (%) |
+| Workout name | `garmin.workoutName` | Name of the structured workout |
+| Workout notes | `garmin.workoutNotes` | Notes attached to the workout |
+
+### Example: name an activity using Garmin workout data
+
+In an automation action that sets the activity name, use:
+
+```
+${garmin.workoutName} — TSS ${garmin.tss}
+```
+
+This produces a name like **Threshold Intervals — TSS 82** directly from your Garmin data.
+
+## Extra data available from Wahoo
+
+When a Wahoo FIT file is downloaded, Strautomator extracts the following:
+
+| Field | Condition key | Description |
+|---|---|---|
+| Device identifier | `wahoo.sensor` | Matches against the device identifier string (includes brand, product name, and serial number) |
+
+<Info>
+  Wahoo's FIT files contain fewer structured training metrics than Garmin's. The primary benefit of linking Wahoo is sensor identification for the battery tracker and cross-referencing activity data between Wahoo and Strava.
+</Info>
+
+## FIT file upload (retroactive enrichment)
+
+If you have a collection of old FIT files and want to enrich past Strava activities without connecting a live Garmin or Wahoo account, you can upload them directly. Navigate to **Activities → FIT Upload**, drag in a ZIP archive containing your FIT files, and Strautomator will parse each file and match it to the corresponding Strava activity by start time.
+
+<Tip>
+  Export a date range of FIT files from Garmin Connect by going to your Garmin Connect account, then **Activities → Export**. Compress the exported files into a ZIP before uploading to Strautomator.
+</Tip>

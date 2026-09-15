@@ -1,0 +1,148 @@
+---
+title: "Weather Integration: Add Conditions and Tags to Activities"
+sidebarTitle: "Weather"
+description: "Use real weather data — temperature, wind, humidity, and AQI — as automation conditions and dynamic tags in your Strava activity descriptions."
+---
+
+Weather integration automatically fetches the conditions at the start of each activity and makes them available throughout your automations. You can check whether it was raining, too cold, or too windy — and use those facts to trigger different names, descriptions, or gear assignments. You can also insert live weather data directly into activity text using dynamic tags.
+
+## How weather data is fetched
+
+When Strautomator processes an activity, it looks up the activity's GPS start coordinates and start time, then calls your chosen weather provider to retrieve conditions for that exact location and moment. No manual input is needed — if the activity has a GPS location, weather data is fetched automatically.
+
+<Info>
+  Activities recorded indoors or without GPS (e.g. virtual rides, manual entries) do not have location data and therefore cannot use weather conditions or tags.
+</Info>
+
+## Available weather data
+
+The following fields are available both as automation **conditions** and as dynamic **tags**:
+
+| Data | Condition key | Tag | Unit |
+|---|---|---|---|
+| Temperature | `weather.temperature` | `${weather.temperature}` | °C or °F |
+| Wind speed | `weather.windSpeed` | `${weather.windSpeed}` | m/s, kph, or mph |
+| Humidity | `weather.humidity` | `${weather.humidity}` | % |
+| Air Quality Index | `weather.aqi` | `${weather.aqi}` | 1–5 scale |
+| Weather summary | — | `${weather.summary}` | Text description |
+
+You can also reference weather at the start or end of your activity specifically:
+
+| Tag | Description |
+|---|---|
+| `${weather.start.temperature}` | Temperature at the activity start location |
+| `${weather.start.windSpeed}` | Wind speed at the activity start location |
+| `${weather.end.temperature}` | Temperature at the activity end location |
+| `${weather.end.summary}` | Weather summary at the activity end location |
+
+## Weather conditions in automations
+
+Use weather fields in the **Conditions** section of any automation to make it fire only under specific weather circumstances.
+
+<Tabs>
+  <Tab title="Temperature">
+    Trigger automations based on how cold or hot it was.
+
+    **Example:** prepend a cold-weather emoji when the temperature drops below 5°C.
+
+    ```
+    Condition: Weather temperature < 5
+    Action: Prepend to name → 🥶
+    ```
+  </Tab>
+  <Tab title="Wind speed">
+    React to windy conditions.
+
+    **Example:** add a note when headwinds make a ride tough.
+
+    ```
+    Condition: Weather wind speed > 40
+    Action: Append to description → 💨 Battled strong winds today.
+    ```
+  </Tab>
+  <Tab title="Humidity">
+    Trigger based on how humid it was.
+
+    ```
+    Condition: Weather humidity > 85
+    Action: Append to name → (humid)
+    ```
+  </Tab>
+  <Tab title="Air Quality Index">
+    The AQI is a 1–5 scale: 1 is good air, 5 is hazardous. Use it to flag poor air quality days.
+
+    ```
+    Condition: Air Quality Index > 3
+    Action: Append to description → ⚠️ Poor air quality during this activity.
+    ```
+  </Tab>
+</Tabs>
+
+## Weather tags in action values
+
+Insert live weather data directly into activity names, descriptions, or private notes using the `${weather.*}` tag syntax.
+
+**Example action value:**
+```
+${name} | ${weather.temperature} · ${weather.summary} · 💨 ${weather.windSpeed}
+```
+
+This produces a name like:
+**Morning Ride | 8°C · Partly cloudy · 💨 18 kph**
+
+<Tip>
+  Combine weather tags with other dynamic tags. For example, use `${weather.start.summary}` to describe conditions at the start and `${weather.end.summary}` to note how they changed by the finish.
+</Tip>
+
+## Unit preferences
+
+Temperature and wind speed display according to your account preferences:
+
+- **Temperature:** Celsius (°C) or Fahrenheit (°F)
+- **Wind speed:** metres per second (m/s), kilometres per hour (kph), or miles per hour (mph)
+
+Set your preferred units in **Account → Settings** under the **Units** section.
+
+## Weather providers
+
+Strautomator supports multiple weather data providers. All plans receive weather data automatically — free plan users get data from the default provider (Open-Meteo), while PRO users can select any provider they prefer.
+
+<CardGroup cols={2}>
+  <Card title="Open-Meteo" icon="cloud">
+    **Free plan default.** Open-source, no API key required. Excellent global coverage with hourly resolution.
+  </Card>
+  <Card title="OpenWeatherMap" icon="cloud-sun">
+    One of the most widely used weather APIs. Strong historical data and good coverage in urban areas worldwide.
+  </Card>
+  <Card title="Tomorrow.io" icon="satellite">
+    High-resolution hyper-local forecasts and historical data. Well-suited for cyclists who want minute-level precision.
+  </Card>
+  <Card title="Visual Crossing" icon="eye">
+    Detailed historical weather with long lookback periods. Ideal for reviewing conditions on past activities.
+  </Card>
+  <Card title="WeatherAPI" icon="globe">
+    Global coverage with a straightforward API. Good balance of accuracy and availability across all regions.
+  </Card>
+</CardGroup>
+
+### Choosing your weather provider (PRO)
+
+<Note>
+  Weather provider selection is a **PRO-only feature**. Free plan users always receive data from Open-Meteo.
+</Note>
+
+To select a different provider:
+
+<Steps>
+  <Step title="Open Account Settings">
+    Click your avatar and select **Account**, then navigate to **Settings**.
+  </Step>
+  <Step title="Find the Weather Provider option">
+    Scroll to the **Weather** section and open the **Weather Provider** dropdown.
+  </Step>
+  <Step title="Select your preferred provider">
+    Choose the provider that suits you best and save your settings.
+  </Step>
+</Steps>
+
+Your chosen provider is used for all new activity processing from that point forward. Historical activity weather data is not retroactively updated when you change providers.

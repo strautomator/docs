@@ -1,0 +1,123 @@
+---
+title: "Troubleshooting Common Strautomator Issues and Errors"
+sidebarTitle: "Troubleshooting"
+description: "Step-by-step guidance for fixing automations that aren't running, missing weather data, GearWear mismatches, Garmin/Wahoo issues, and calendar problems."
+---
+
+Most issues with Strautomator fall into a handful of categories. Work through the relevant section below to diagnose and resolve the problem. If you're still stuck after following these steps, reach out through the chat widget on the Help page.
+
+<AccordionGroup>
+
+<Accordion title="My automation isn't running — what do I check?">
+  Work through this checklist in order:
+
+  <Steps>
+    <Step title="Check the automation is enabled">
+      Go to the **Automations** page. Confirm the toggle next to the automation is switched on. A disabled automation never fires, regardless of whether its conditions would match.
+    </Step>
+    <Step title="Use Debug to inspect the activity's field values">
+      Go to **Recent Activities** and click **Debug** on the activity you expected the automation to process. This shows you the exact values Strautomator read for every field — distance, speed, elevation, sport type, etc. Compare these values against your automation's conditions to see whether they actually match.
+    </Step>
+    <Step title="Check units">
+      Conditions use the unit system set in your Account Settings. If your account is set to miles and your condition says "distance > 50", that means 50 miles — not 50 km. Verify the unit setting matches what you intended when writing the condition.
+    </Step>
+    <Step title="Look for a kill-switch automation above it">
+      Automations run in order from top to bottom. If an automation higher in the list has a kill switch and it fired for that activity, Strautomator stops evaluating any further automations. Check whether a kill-switch automation is blocking yours.
+    </Step>
+    <Step title="Check Strava API status">
+      Look for a status alert banner on the Strautomator dashboard. If Strava's API is experiencing issues, webhooks may be delayed or dropped. Wait for Strava to recover and check the activity again.
+    </Step>
+  </Steps>
+</Accordion>
+
+<Accordion title="My activity name or description wasn't updated">
+  If an automation fired but the name or description in Strava doesn't reflect the change, try the following:
+
+  - **Check automation history** — Go to **Automations → History** and confirm the automation actually fired for that activity. If it shows as fired, Strautomator did send the update to Strava.
+  - **Wait a few minutes** — Strava sometimes delays processing write requests. The update may appear in Strava shortly after you check.
+  - **Account for delayed processing** — If you have delayed processing enabled in Account Settings, automations wait for the configured delay period before firing. Add that time to your expectation.
+  - **Check for manual edits after sync** — If you manually edited the activity in Strava after Strautomator processed it, your manual edit may have overwritten Strautomator's changes — or Strava's subsequent webhook triggered Strautomator again, overwriting your manual edit. Avoid editing activities in Strava if you want Strautomator's output to stick, or temporarily disable the automation before making manual changes.
+
+  <Warning>
+    If you manually edit an activity in Strava, Strava fires an update webhook, which causes Strautomator to re-process the activity and potentially overwrite your edits. Disable the relevant automation before making manual changes if you want them to persist.
+  </Warning>
+</Accordion>
+
+<Accordion title="Weather data is missing from my activity tags">
+  Weather tags (temperature, wind, conditions, etc.) require Strautomator to fetch data for the location and time of your activity. If weather tags are appearing blank or as placeholders, check the following:
+
+  - **GPS data is required** — Strautomator uses your activity's start GPS coordinates to look up the weather at that location. If the activity has no GPS data (for example, a manual activity or an indoor trainer session with location disabled), weather cannot be fetched.
+  - **Activity is too short** — Very short activities may not have enough GPS data for a reliable location fix.
+  - **Weather provider setting (PRO)** — If you're on PRO and have selected a specific weather provider, confirm the provider is still active and that your API key (if applicable) is valid. Go to Account Settings to check.
+  - **Retry with Batch Sync** — If weather was temporarily unavailable when the activity was processed (for example, the weather API was down), you can re-run the automation using Batch Sync to fetch the weather data again.
+</Accordion>
+
+<Accordion title="GearWear distance doesn't match Strava distance">
+  If your GearWear component totals seem lower than expected, consider these causes:
+
+  - **Gear tracking delay is active** — If you've enabled the gear tracking delay in Account Settings, activities are held for 1–3 days before their distance is added to GearWear totals. Check your Account Settings to see if this is on and how long the delay is.
+  - **Gear was not assigned at the time of processing** — GearWear only counts activities that had gear assigned in Strava when Strautomator processed them. If you added gear to an activity in Strava after it was originally processed, the distance may not have been counted. Use Batch Sync to reprocess those activities.
+  - **Gear was assigned to a different config** — Confirm the activity used the correct bike or shoes in Strava. If it was assigned to a different piece of gear, the distance went to that gear's config, not the one you're checking.
+</Accordion>
+
+<Accordion title="My Garmin or Wahoo data isn't appearing in automations">
+  The Garmin and Wahoo integration pulls data from the original FIT file recorded by your device. If that data isn't showing up in automation conditions, check the following:
+
+  - **Confirm the account is linked** — Go to **Account → Linked Accounts** and verify that your Garmin or Wahoo account shows as connected. If it's not listed, link it from that page.
+  - **PRO is required** — The Garmin and Wahoo integration is a PRO-only feature. If you're on the free plan, upgrade to access FIT file data in automations.
+  - **FIT file must contain the data** — Not all data points are present in every FIT file. Sensor data, training load, and workout notes only appear if your device recorded them. Use the Debug view on a recent activity to see which Garmin/Wahoo fields are available for that activity.
+</Accordion>
+
+<Accordion title="I can't link my Spotify account">
+  If the Spotify linking process fails or Spotify-related actions aren't working, try relinking the account:
+
+  <Steps>
+    <Step title="Unlink Spotify">
+      Go to **Account → Linked Accounts** and click **Unlink** next to Spotify.
+    </Step>
+    <Step title="Re-link Spotify">
+      Click **Link Spotify** and complete the authorization flow again.
+    </Step>
+    <Step title="Check Spotify app permissions">
+      If the link still fails, go to [spotify.com/account/apps](https://www.spotify.com/account/apps) and check that Strautomator is listed and has the necessary permissions. If it's listed with restricted access, remove it and re-authorize from Strautomator.
+    </Step>
+  </Steps>
+
+  <Note>
+    Spotify occasionally expires OAuth tokens even for connected apps. If Spotify actions suddenly stop working after previously functioning, re-link the account to refresh the token.
+  </Note>
+</Accordion>
+
+<Accordion title="The calendar isn't updating in my calendar app">
+  Strautomator's calendar is a live `.ics` subscription feed. Your calendar app polls this URL at its own refresh interval — Strautomator's data is always up to date, but your app may take time to fetch it.
+
+  - **Google Calendar** refreshes subscribed calendars approximately every 24 hours. You can't force a faster refresh from within Google Calendar.
+  - **Apple Calendar** refresh intervals vary. You can force a refresh by right-clicking the calendar and selecting **Refresh**.
+  - **Other apps** — Check your app's settings for a "Refresh" or "Sync" option for subscribed calendars.
+
+  If the calendar feed was never showing data or suddenly stopped:
+
+  - **Check the subscription URL** — Go to **Features → Calendar** in Strautomator and confirm the URL is unchanged. If you reset your calendar token, the old URL is no longer valid and you'll need to re-subscribe with the new URL.
+  - **Re-subscribe** — Remove the calendar from your app and add the current subscription URL again.
+</Accordion>
+
+<Accordion title="How do I re-authorize Strava?">
+  If Strautomator loses its connection to Strava — for example, if you revoked access in Strava's settings — you'll need to re-authorize:
+
+  <Steps>
+    <Step title="Log out of Strautomator">
+      Click your profile icon and select **Log Out**.
+    </Step>
+    <Step title="Log back in">
+      On the login page, click **Connect with Strava** and complete the Strava authorization flow.
+    </Step>
+  </Steps>
+
+  If you revoked Strautomator's access in Strava (via Strava Settings → My Apps), make sure you complete the full re-authorization — simply logging back in may not restore the connection if access was fully revoked on Strava's side.
+
+  <Tip>
+    After re-authorizing, check that your automations are still enabled and that recent activities are appearing in the Recent Activities list. If activities are missing, use Batch Sync to reprocess any that were recorded during the disconnection period.
+  </Tip>
+</Accordion>
+
+</AccordionGroup>

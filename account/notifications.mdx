@@ -1,0 +1,60 @@
+---
+title: "In-App Notifications and Alerts — Strautomator Guide"
+sidebarTitle: "Notifications"
+description: "Learn how Strautomator notifies you about GearWear alerts, failed automations, FTP updates, system announcements, and authentication errors."
+---
+
+Strautomator keeps you informed about important events — from a GearWear component approaching its service threshold to an automation that failed to run — through its in-app notification system. All alerts are delivered inside the app, with optional email summaries if you accumulate unread messages.
+
+## Where to Find Notifications
+
+A **bell icon** in the top navigation bar shows your current unread notification count. Click the bell (or navigate to **Account → Notifications**) to open the Notifications page.
+
+The Notifications page displays two sections:
+
+- **Unread** — new notifications you have not yet seen, listed in reverse chronological order.
+- **Read** — notifications you have already viewed, kept for reference.
+
+Strautomator automatically marks notifications as read after you view them for a short moment on the page. You do not need to click each one individually.
+
+---
+
+## Types of Notifications
+
+<CardGroup cols={2}>
+  <Card title="GearWear Alerts" icon="gear">
+    Receive a **pre-alert** when a component is approaching its configured distance or time threshold, and a **threshold alert** when it reaches or exceeds it. These remind you to inspect or replace components like chains, tyres, and brake pads before they become a safety issue.
+  </Card>
+  <Card title="Failed Automations" icon="triangle-exclamation">
+    If an automation (recipe) fails to run — for example, because Strava rejects a field value — Strautomator sends a notification so you can review and fix the automation before it causes further issues.
+  </Card>
+  <Card title="FTP Auto-Update" icon="bolt">
+    When the **FTP auto-update** feature (PRO) updates your Functional Threshold Power value in Strava, you receive a notification showing the updated FTP value so you can review the change.
+  </Card>
+  <Card title="System Announcements" icon="megaphone">
+    Strautomator occasionally sends announcements about new features, planned maintenance, or important changes to the service. These appear in your notification feed so you do not miss anything significant.
+  </Card>
+  <Card title="Auth Error Alerts" icon="lock-open">
+    If Strautomator loses its connection to your Strava, Garmin, Wahoo, or Spotify account — for example, because an OAuth token expired or access was revoked — an alert notifies you immediately so you can re-authenticate and avoid disruptions.
+  </Card>
+</CardGroup>
+
+---
+
+## Email Reminders
+
+Strautomator monitors your unread notification count. If you accumulate a significant number of unread alerts without logging in to clear them, the system may send an email summary to the address registered on your account. This acts as a safety net so critical alerts (such as an auth error or a failed automation) do not go unnoticed.
+
+<Note>
+  Email reminders are only sent to a confirmed email address. If you have not yet added or verified an email address, visit **Account → Settings** to do so.
+</Note>
+
+---
+
+## No Push Notifications
+
+Strautomator does not currently support browser push notifications or mobile push notifications. All alerts are delivered in-app through the notification centre, with the optional email fallback described above.
+
+<Tip>
+  Make a habit of checking the bell icon after a block of activity recording — GearWear threshold alerts and FTP update notifications appear there as soon as your activities are processed, usually within a few minutes of syncing with Strava.
+</Tip>

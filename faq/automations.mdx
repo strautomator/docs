@@ -1,0 +1,95 @@
+---
+title: "Strautomator Automations FAQ — Common Questions Answered"
+sidebarTitle: "Automations"
+description: "Answers to common questions about creating, ordering, debugging, and running automations — including kill switches, batch sync, and rate limits."
+---
+
+Automations are the core of Strautomator — they're the rules that decide what happens to each activity. This page answers the most common questions about how automations work, how to troubleshoot them, and how to get the most out of them.
+
+<AccordionGroup>
+
+<Accordion title="How many automations can I have?">
+  The number of automations you can create depends on your plan:
+
+  - **Free plan** — Up to 3 automations
+  - **PRO plan** — Up to 999 automations (effectively unlimited for any practical use case)
+
+  On the Free plan, if you need more flexibility, consider combining multiple conditions into a single automation using AND/OR logic rather than creating separate automations for each scenario. Upgrading to PRO removes the limit entirely.
+</Accordion>
+
+<Accordion title="Do automations run on past activities?">
+  Automations only fire automatically for new activities as they arrive via Strava's webhook. They do not retroactively process activities that were recorded before you created the automation.
+
+  To apply your automations to historical activities, use **Batch Sync**. Batch Sync lets you select a date range and re-run your automations against all activities in that range. You'll find Batch Sync under the Automations page.
+
+  <Note>
+    Batch Sync is subject to Strava's API rate limits, so processing a large date range may take some time. PRO users have access to a longer history window (up to 10 years).
+  </Note>
+</Accordion>
+
+<Accordion title="My automation isn't firing — what should I check?">
+  Start with the **Debug** button on the Recent Activities page. Clicking Debug for a specific activity shows you the exact field values Strautomator read for that activity (distance, speed, elevation, sport type, etc.), which makes it easy to see whether your condition values actually match.
+
+  Common causes:
+
+  - **Unit mismatch** — Distance and speed conditions use the unit system set in your Account Settings (km or miles). If your condition says "distance > 50" but your setting is in miles, 50 means 50 miles, not 50 km.
+  - **Wrong sport type** — If your automation is scoped to a specific sport type, verify the activity's sport type matches exactly (for example, "Ride" vs. "VirtualRide").
+  - **Kill switch** — If another automation higher in the list has a kill switch and it fired, no further automations run for that activity. Check the automation order on your Automations page.
+  - **Automation is disabled** — Confirm the toggle next to the automation is switched on.
+  - **Strava API issues** — Check the dashboard for any Strava status alerts.
+</Accordion>
+
+<Accordion title="Can I have multiple conditions in one automation?">
+  Yes. You can add as many conditions as you need to a single automation and chain them using **AND** or **OR** logic:
+
+  - **AND** — All conditions must be true for the automation to fire
+  - **OR** — Any one of the conditions being true is enough to trigger the automation
+
+  You can also **group conditions** to create more complex logic — for example, "(distance > 50 km AND sport = Ride) OR (sport = VirtualRide)". Condition groups let you build nuanced rules without needing multiple separate automations.
+</Accordion>
+
+<Accordion title="What is a default automation?">
+  A default automation is one with **no conditions**. Because it has no conditions to evaluate, it fires for every activity that matches its sport type filter (or for every activity of any type, if no sport filter is set).
+
+  Default automations are useful as a catch-all — for example, "for every Run activity, append my club hashtag to the description." You can combine a default automation with more specific automations by placing the specific ones above it in the list and using kill switches where needed to prevent both from firing on the same activity.
+</Accordion>
+
+<Accordion title="What does the kill switch do?">
+  When an automation with a **kill switch** enabled fires successfully, Strautomator stops evaluating any further automations for that activity. Automations are evaluated in order from top to bottom on the Automations page.
+
+  Kill switches are useful when you have mutually exclusive automations — for example:
+
+  1. "If distance > 100 km → set name to 'Century Ride'" (kill switch on)
+  2. "If sport = Ride → set name to 'Regular Ride'"
+
+  With the kill switch on the first automation, a 100+ km ride gets named "Century Ride" and the second automation never runs. Without the kill switch, both would fire and the second would overwrite the first.
+</Accordion>
+
+<Accordion title="Can I duplicate an automation?">
+  Yes. Open the automation you want to copy in the automation editor, then click the **Duplicate** button. Strautomator creates an identical copy of the automation (including all conditions and actions) which you can then edit independently.
+
+  This is useful when you want to create similar automations for different sport types or distance ranges without rebuilding the entire rule from scratch.
+</Accordion>
+
+<Accordion title="How do I reorder automations?">
+  On the Automations page, you can **drag and drop** automations to change their order. The order matters whenever you're using kill switches — automations higher in the list are evaluated first.
+
+  Plan your order with the most specific (narrowest conditions) automations near the top, and your broadest or default automations near the bottom. This way, a specific rule with a kill switch can prevent a generic rule from firing on the same activity.
+</Accordion>
+
+<Accordion title="Can automations update activities I edited manually?">
+  Yes. When you manually edit an activity in Strava (change the name, description, type, or gear), Strava fires a webhook update event. Strautomator receives this event and re-processes the activity against your automations, which may overwrite your manual edits.
+
+  If you want to protect a manual edit, you have a couple of options:
+
+  - Add a condition to your automation that prevents it from re-firing (for example, check if a specific tag is already in the description)
+  - Temporarily disable the automation before making manual edits in Strava
+</Accordion>
+
+<Accordion title="Are there rate limits?">
+  Strautomator respects Strava's API rate limits, which restrict the number of API calls allowed per 15-minute window and per day. During high-traffic periods — for example, after a major event when thousands of athletes finish at the same time — processing may be slightly delayed as Strautomator queues requests to stay within those limits.
+
+  Your activities will always be processed; the only effect of rate limiting is a potential delay of a few extra minutes. Strautomator manages this automatically and you don't need to take any action.
+</Accordion>
+
+</AccordionGroup>

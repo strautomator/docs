@@ -1,0 +1,91 @@
+---
+title: "Close Your Strautomator Account and Delete Your Data"
+sidebarTitle: "Close Account"
+description: "Permanently delete your Strautomator account and all associated data. Learn what steps to take before and after closing your account."
+---
+
+Closing your Strautomator account permanently deletes all the data the platform holds about you. This is a deliberate, irreversible action — take a moment to review what happens before you proceed.
+
+<Warning>
+  Account deletion is **permanent and cannot be undone**. Once you confirm, all your automations, GearWear configurations, activity history, personal records, and preferences are erased immediately and cannot be recovered. Your Strava activities are not affected.
+</Warning>
+
+---
+
+## What Gets Deleted
+
+When you close your account, the following data is permanently and irreversibly removed from Strautomator:
+
+| Data | Deleted? |
+|---|---|
+| Automations (recipes) | ✅ Yes |
+| GearWear configurations and component totals | ✅ Yes |
+| Calendar settings | ✅ Yes |
+| Automation history and activity logs | ✅ Yes |
+| Personal records | ✅ Yes |
+| Account preferences and settings | ✅ Yes |
+| Your Strava activities and data | ❌ No — Strava data is not affected |
+
+Your Strava account and all your activities, routes, and segments remain completely untouched. Strautomator never stores the activity content itself — only the metadata needed to process automations.
+
+---
+
+## Before You Close Your Account
+
+Complete these steps before initiating deletion to avoid unexpected charges or orphaned access:
+
+<Steps>
+  <Step title="Cancel any active subscription">
+    If you have an active PRO subscription via Paddle or GitHub Sponsors, cancel it first. Closing your Strautomator account does **not** automatically cancel an external subscription — you could continue to be charged even after your account no longer exists. See the [Billing guide](/account/billing) for cancellation instructions.
+  </Step>
+  <Step title="Download your data (optional)">
+    If you want a copy of your automations, GearWear configs, or history for your own records, download your data before closing. Visit **Account → Download My Data** — see the [Data Export guide](/account/data-export) for details. Once the account is deleted, this data cannot be retrieved.
+  </Step>
+</Steps>
+
+---
+
+## How to Close Your Account
+
+<Steps>
+  <Step title="Go to your Account page">
+    Log in to Strautomator and navigate to your **Account** page.
+  </Step>
+  <Step title="Click Close My Account">
+    Scroll to the bottom of the page and click **Close My Account**.
+  </Step>
+  <Step title="Confirm deletion">
+    A confirmation dialog appears, summarising what will be deleted. Read it carefully, then click **Confirm** to proceed. The deletion begins immediately.
+  </Step>
+  <Step title="You are logged out">
+    Once deletion completes, you are automatically logged out and your session is ended. You will see a confirmation message that your account has been closed.
+  </Step>
+</Steps>
+
+---
+
+## Revoking Strautomator's Strava Access
+
+After closing your account, Strautomator's OAuth connection to Strava still exists unless you explicitly revoke it. Revoke access to ensure Strautomator can no longer read or receive webhook events from your Strava account:
+
+<Steps>
+  <Step title="Open Strava Settings">
+    Log in to Strava and go to **Settings → My Apps** (or visit [strava.com/settings/apps](https://www.strava.com/settings/apps) directly).
+  </Step>
+  <Step title="Find Strautomator">
+    Locate **Strautomator** in the list of connected applications.
+  </Step>
+  <Step title="Revoke Access">
+    Click **Revoke Access** next to Strautomator. The connection is removed immediately.
+  </Step>
+</Steps>
+
+---
+
+## Re-joining Strautomator
+
+You are always welcome to come back. If you re-connect Strautomator to Strava in the future, a fresh account is created automatically — just like the first time you signed up. Previous data, automations, and configurations are not recoverable, so you will start from scratch.
+
+<Note>
+  If you were on a Paddle Lifetime plan, contact support before re-joining — the team may be able to assist with reinstating your PRO access on your new account.
+</Note>

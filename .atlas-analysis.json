@@ -1,0 +1,123 @@
+{
+  "projectType": "saas",
+  "projectName": "Strautomator",
+  "projectDescription": "Strautomator is an automation platform for Strava athletes that lets users create rule-based recipes to automatically update, enrich, and organize their activities.",
+  "theme": "almond",
+  "primaryColor": "#ff8f00",
+  "lightColor": "#3c322d",
+  "darkColor": "#d5d3d2",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Guide",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "quickstart",
+              "free-vs-pro"
+            ]
+          },
+          {
+            "group": "Automations",
+            "pages": [
+              "automations/overview",
+              "automations/conditions",
+              "automations/actions",
+              "automations/dynamic-tags",
+              "automations/sharing",
+              "automations/history"
+            ]
+          },
+          {
+            "group": "Gear Tracking",
+            "pages": [
+              "gear/overview",
+              "gear/components",
+              "gear/battery-tracker"
+            ]
+          },
+          {
+            "group": "Features",
+            "pages": [
+              "features/calendar",
+              "features/upcoming-events-map",
+              "features/personal-records",
+              "features/ftp-estimator",
+              "features/ai-content",
+              "features/activity-debug"
+            ]
+          },
+          {
+            "group": "Integrations",
+            "pages": [
+              "integrations/garmin-wahoo",
+              "integrations/spotify-lastfm",
+              "integrations/weather",
+              "integrations/webhooks"
+            ]
+          },
+          {
+            "group": "Account & Billing",
+            "pages": [
+              "account/settings",
+              "account/notifications",
+              "account/data-export",
+              "account/billing",
+              "account/close-account"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "FAQ",
+        "groups": [
+          {
+            "group": "Help",
+            "pages": [
+              "faq/general",
+              "faq/automations",
+              "faq/gear",
+              "faq/billing",
+              "faq/troubleshooting"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Rule-based activity automations (rename, describe, tag, gear assignment) triggered on every new Strava activity",
+    "50+ condition types including sport type, distance, speed, heart rate, power, location, weather, and music",
+    "Dynamic template tags (${tags}) for injecting live data into activity names and descriptions",
+    "GearWear component tracking with distance/time thresholds and replacement alerts",
+    "Subscribable ICS calendar of Strava activities and club events",
+    "AI-generated activity names, poems, and training insights (PRO)",
+    "Automatic FTP estimation from power data",
+    "Personal records tracking across all sports",
+    "Upcoming club events map with weather forecasts",
+    "Garmin and Wahoo device integration with ANT+ sensor battery tracking (PRO)",
+    "Spotify and Last.fm music integration for track-based conditions and tags",
+    "Outbound webhooks to external services on activity match (PRO)",
+    "Batch sync to retroactively apply automations to historical activities",
+    "Activity history and automation execution debugging tools",
+    "Free and PRO subscription tiers (via Paddle or GitHub Sponsors)"
+  ],
+  "publicApiSurface": [
+    "GET /api/calendar/:user/:token — ICS calendar feed",
+    "POST /api/strava/webhook — Strava activity webhook receiver",
+    "GET /api/strava/auth — OAuth initiation",
+    "GET /api/auth/callback — OAuth callback handler",
+    "POST /api/activities/:id/process — Manually trigger automation processing for an activity",
+    "GET /api/activities/recent — List recently processed activities",
+    "GET /api/recipes — List user automations",
+    "POST /api/recipes — Create automation",
+    "PUT /api/recipes/:id — Update automation",
+    "DELETE /api/recipes/:id — Delete automation",
+    "GET /api/gearwear — List GearWear configurations",
+    "POST /api/gearwear — Create GearWear configuration",
+    "GET /api/account — Get account details and preferences",
+    "PUT /api/account — Update account preferences"
+  ]
+}

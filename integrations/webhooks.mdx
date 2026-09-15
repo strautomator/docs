@@ -1,0 +1,164 @@
+---
+title: "Outbound Webhooks: Connect Automations to Any Service"
+sidebarTitle: "Webhooks"
+description: "Send activity data to any URL when an automation fires — integrate Strautomator with Zapier, Make, Discord, custom APIs, and home automation systems."
+---
+
+Webhooks let you forward Strava activity data to any external service the moment an automation fires. Instead of stopping at renaming an activity or updating gear, a webhook action sends an HTTP POST request containing the full activity payload as JSON — so you can pipe that data into a workflow tool, a custom API, a Discord bot, or anything else that can receive an HTTP request.
+
+<Note>
+  Outbound webhooks are a **PRO-only feature**. Upgrade to PRO to add webhook actions to your automations.
+</Note>
+
+## What webhooks do
+
+When an automation with a webhook action is triggered by an incoming Strava activity, Strautomator:
+
+1. Evaluates all conditions in the automation (as usual).
+2. If the conditions pass, sends an HTTP POST request to the URL you specified.
+3. Includes the complete activity data as a JSON body in the request.
+4. Continues processing any remaining actions in the same automation.
+
+The external service at your target URL receives the activity data and can act on it — post to Slack, log to a spreadsheet, trigger a smart home scene, or chain into a multi-step workflow.
+
+## How to add a webhook action
+
+<Steps>
+  <Step title="Open the automation editor">
+    Go to **Automations** and open an existing automation, or click **New Automation** to create one.
+  </Step>
+  <Step title="Add an action">
+    Scroll to the **Actions** section and click **Add Action**.
+  </Step>
+  <Step title="Select Webhook">
+    Choose **Webhook** from the action type dropdown.
+  </Step>
+  <Step title="Enter your target URL">
+    Paste the full URL of the endpoint you want to receive the payload. For example, a Zapier webhook URL, a Make (Integromat) scenario URL, or your own server endpoint.
+  </Step>
+  <Step title="Save the automation">
+    Click **Save**. The webhook fires the next time this automation matches an incoming activity.
+  </Step>
+</Steps>
+
+<Tip>
+  You can also prefix your URL with an HTTP method to use something other than POST — for example, `PUT https://api.example.com/activities`. Supported methods are `GET`, `POST`, `PUT`, `PATCH`, `DELETE`, and `HEAD`. When no method prefix is provided, Strautomator defaults to `POST`.
+</Tip>
+
+## Payload format
+
+The webhook body is a JSON object containing the full Strava activity record as processed by Strautomator. This includes all standard Strava fields plus any enriched data (weather, Garmin FIT data, city names, and so on) that was resolved during processing.
+
+### Sample payload
+
+```json
+{
+  "id": 12345678901,
+  "name": "Morning Ride in Berlin",
+  "sportType": "Ride",
+  "distance": 42.3,
+  "movingTime": 5400,
+  "totalTime": 5520,
+  "elevationGain": 320,
+  "speedAvg": 28.4,
+  "hrAvg": 152,
+  "wattsAvg": 210,
+  "dateStart": "2024-03-15T07:30:00.000Z",
+  "countryStart": "Germany",
+  "weatherSummary": "8°C · Partly cloudy · 💨 18 kph",
+  "gear": { "id": "b123456", "name": "Canyon Aeroad" }
+}
+```
+
+### Key fields in the payload
+
+<ResponseField name="id" type="number">
+  The Strava activity ID (numeric).
+</ResponseField>
+
+<ResponseField name="name" type="string">
+  The activity name, after any name-modifying actions in the same automation have run.
+</ResponseField>
+
+<ResponseField name="sportType" type="string">
+  The sport type reported by Strava (e.g. `Ride`, `Run`, `Swim`, `VirtualRide`).
+</ResponseField>
+
+<ResponseField name="distance" type="number">
+  Total distance in kilometres (or miles, depending on your unit preference).
+</ResponseField>
+
+<ResponseField name="movingTime" type="number">
+  Moving time in seconds.
+</ResponseField>
+
+<ResponseField name="totalTime" type="number">
+  Total elapsed time in seconds.
+</ResponseField>
+
+<ResponseField name="elevationGain" type="number">
+  Total elevation gain in metres.
+</ResponseField>
+
+<ResponseField name="speedAvg" type="number">
+  Average speed in km/h (or mph, depending on your unit preference).
+</ResponseField>
+
+<ResponseField name="hrAvg" type="number">
+  Average heart rate in bpm, if heart rate data was recorded.
+</ResponseField>
+
+<ResponseField name="wattsAvg" type="number">
+  Average power output in watts, if a power meter was used.
+</ResponseField>
+
+<ResponseField name="dateStart" type="string">
+  Activity start time as a UTC date string.
+</ResponseField>
+
+<ResponseField name="countryStart" type="string">
+  Country name of the activity start location.
+</ResponseField>
+
+<ResponseField name="weatherSummary" type="string">
+  A formatted weather summary for the activity, if weather data was resolved.
+</ResponseField>
+
+<ResponseField name="gear" type="object">
+  The gear assigned to the activity, with `id` and `name` fields.
+</ResponseField>
+
+## Use cases
+
+<CardGroup cols={2}>
+  <Card title="Zapier workflows" icon="bolt">
+    Send activity data to Zapier and connect to 5,000+ apps — post a Slack message, add a row to Google Sheets, or create a task in your project manager.
+  </Card>
+  <Card title="Make (Integromat)" icon="diagram-project">
+    Trigger a Make scenario when an activity matches your conditions. Build complex multi-step automations beyond what any single app supports.
+  </Card>
+  <Card title="Discord bots" icon="discord">
+    Post your activity summary to a Discord channel or DM — great for sharing ride stats with a club or training group.
+  </Card>
+  <Card title="Home automation" icon="house">
+    Trigger a Home Assistant webhook, a Philips Hue scene, or any smart home API when you finish a workout.
+  </Card>
+  <Card title="Custom APIs" icon="code">
+    Forward activity data to your own backend, data store, or analytics pipeline with no middleware required.
+  </Card>
+  <Card title="Notification services" icon="bell">
+    Push a notification to your phone via Pushover, Pushbullet, or ntfy whenever a specific type of activity is recorded.
+  </Card>
+</CardGroup>
+
+<Tip>
+  **Connect Strautomator to 5,000+ services via Zapier.** Create a Zap with a **Webhooks by Zapier** trigger set to "Catch Hook", copy the provided URL into your Strautomator webhook action, and map the activity JSON fields to any downstream app. No coding required.
+</Tip>
+
+## Combining webhooks with other actions
+
+Webhook is just another action type — you can combine it with name changes, description updates, gear assignments, or any other action in the same automation. The webhook fires after all other actions have been applied, so the payload reflects the final state of the activity.
+
+<Warning>
+  If the target URL is unreachable or returns an error, Strautomator records the failure and continues processing the activity. The webhook failure does not prevent other actions in the automation from completing or block the activity from being saved on Strava.
+</Warning>

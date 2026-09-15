@@ -1,0 +1,93 @@
+---
+title: "ANT+ Sensor Battery Tracker for Garmin and Wahoo (PRO)"
+sidebarTitle: "Battery Tracker"
+description: "Automatically monitor battery levels of your ANT+ sensors from Garmin and Wahoo devices, and receive alerts when a sensor runs low."
+---
+
+Knowing that a sensor battery is dying mid-ride is far more disruptive than swapping a coin cell at home. The Battery Tracker reads device battery status directly from the FIT files attached to your activities and keeps a live dashboard on your Gear page so you can see the state of every connected sensor at a glance.
+
+<Note>
+  The Battery Tracker is a **PRO-only** feature. You also need to link at least one Garmin or Wahoo account under **Account → Connections** to enable FIT file processing for your activities.
+</Note>
+
+## What the Battery Tracker monitors
+
+The tracker detects any ANT+ or Bluetooth sensor that reports its battery status in the FIT file produced by your head unit or GPS watch. Common device types include:
+
+- Heart rate monitors
+- Power meters
+- Cadence and speed sensors
+- GPS devices and head units
+- Foot pods
+- Radar and light modules that report FIT data
+
+Each sensor is identified by the device ID embedded in the FIT file and listed individually on the Gear page.
+
+## How battery data is collected
+
+When Strautomator processes one of your activities, it retrieves the associated FIT file from your Garmin or Wahoo account (via the integration you have linked). It parses the device records in that file to extract battery status for every sensor that was active during the activity, then stores the most recent status per device.
+
+<Info>
+  Battery data is only available when a FIT file is present. Activities imported as GPX files or manually entered activities without FIT data will not update sensor battery statuses.
+</Info>
+
+Sensors that haven't appeared in any recent activity for an extended period are automatically marked as **Unknown** to avoid showing stale data as current.
+
+## Battery status levels
+
+Each sensor displays one of six status levels:
+
+| Status | Meaning |
+|---|---|
+| **Full** | Battery is fully charged or at maximum capacity |
+| **Good** | Battery level is healthy, no action needed |
+| **OK** | Battery is at an acceptable level |
+| **Low** | Battery is running low — plan a replacement soon |
+| **Critical** | Battery is critically low — replace before your next activity |
+| **Unknown** | No recent FIT data available for this sensor |
+
+The status is shown as a colour-coded chip next to each device on the Gear page, alongside the date it was last updated (which matches the date of the activity that reported it).
+
+## Alerts
+
+When a sensor's status changes to **Low** or **Critical**, Strautomator sends an email alert to the address on your account. The alert lists the affected devices and their status so you know exactly which batteries need attention.
+
+To control whether you receive these emails:
+
+1. Go to **Account → Preferences**.
+2. Find the **Battery alerts** toggle.
+3. Enable or disable email alerts for low and critical battery status changes.
+
+<Tip>
+  Battery alert emails are only sent when the status *changes* to Low or Critical, not on every activity sync. If a sensor remains at Low across multiple activities, you will receive only one email — until it either recovers or drops to Critical, at which point another alert is sent.
+</Tip>
+
+## Managing your sensors
+
+All detected sensors appear in the **Device batteries** section on the **Gear** page, sorted by device ID.
+
+### Renaming a sensor
+
+Device IDs from FIT files are often numeric strings that are difficult to recognise at a glance. Click the device name on the Gear page to open the rename dialog and enter a friendly label (for example, `Wahoo TICKR` or `Favero Assioma`). The label is stored in your account preferences and shown everywhere the device appears.
+
+### Removing a sensor
+
+If you retire a sensor or no longer want it tracked, click its name on the Gear page and choose **Forget device** in the dialog. This removes the device from your tracker immediately. If the same device appears in a future FIT file, it will be re-added automatically.
+
+## Requirements and prerequisites
+
+<Accordion title="Linking your Garmin account">
+  1. Go to **Account → Connections**.
+  2. Click **Link Garmin account**.
+  3. Authorise Strautomator in the Garmin Connect OAuth flow.
+  4. Strautomator will start accessing FIT files from your future activities automatically.
+</Accordion>
+
+<Accordion title="Linking your Wahoo account">
+  1. Go to **Account → Connections**.
+  2. Click **Link Wahoo account**.
+  3. Authorise Strautomator in the Wahoo OAuth flow.
+  4. Strautomator will start accessing FIT files from your future activities automatically.
+</Accordion>
+
+Once a Garmin or Wahoo account is linked and you complete an activity, the Battery Tracker section appears on the Gear page automatically — no additional configuration is required.

@@ -1,0 +1,204 @@
+---
+title: "Dynamic Tags: Inject Live Data into Activity Names"
+sidebarTitle: "Dynamic Tags"
+description: "Use ${tag} placeholders in activity names and descriptions to automatically insert distance, city, weather, music, gear, and more into every activity."
+---
+
+Dynamic tags are template placeholders you write directly into any name or description action. When Strautomator processes your activity, it replaces each `${tagname}` with the real value from that activity — so your activity names and descriptions always reflect actual data without any manual editing.
+
+Write a tag anywhere in a name or description action value by wrapping the tag name in `${` and `}`. For example:
+
+```
+${weekday} ${sportType} in ${city} — ${distance} @ ${speedAvg}
+```
+
+becomes:
+
+```
+Tuesday Ride in Berlin — 42.3 km @ 28.4 km/h
+```
+
+Tags that have no value for the activity (e.g., `${hrAvg}` on an activity recorded without a heart rate monitor) are replaced with an empty string, so the surrounding text flows cleanly.
+
+---
+
+## Activity data tags
+
+These tags draw directly from the activity's recorded metrics.
+
+| Tag | Example output | Notes |
+|---|---|---|
+| `${distance}` | `42.3 km` | Respects metric/imperial preference |
+| `${speedAvg}` | `28.4 km/h` | Average speed |
+| `${speedMax}` | `54.1 km/h` | Maximum speed |
+| `${paceAvg}` | `4:32 /km` | Average pace; `/100m` for swims |
+| `${paceMax}` | `3:58 /km` | Best pace achieved |
+| `${elevationGain}` | `820 m` | Total elevation gain |
+| `${elevationMax}` | `1240 m` | Highest point reached |
+| `${movingTime}` | `01:32` | Moving time in HH:MM |
+| `${totalTime}` | `01:45` | Elapsed time in HH:MM |
+| `${hrAvg}` | `152 bpm` | Average heart rate |
+| `${hrMax}` | `178 bpm` | Maximum heart rate |
+| `${wattsAvg}` | `210 watts` | Average power |
+| `${wattsWeighted}` | `225 watts` | Normalized power |
+| `${wattsMax}` | `1240 watts` | Peak power |
+| `${wattsKg}` | `3.2` | Watts per kilogram |
+| `${cadenceAvg}` | `88 rpm` | Average cadence; `spm` for runs/swims |
+| `${calories}` | `1850 kcal` | Estimated calories burned |
+| `${relativeEffort}` | `142` | Strava relative effort score |
+| `${tss}` | `98` | Training stress score (requires power) |
+| `${perceivedExertion}` | `7` | Athlete's perceived exertion (1–10) |
+| `${lapCount}` | `4` | Number of laps |
+| `${sportType}` | `Ride` | Translated sport type label |
+| `${weekday}` | `Tuesday` | Day of the week the activity started |
+| `${dateStart}` | `Tue, Jan 14 09:30` | Local start date and time |
+
+<Tip>
+  Turn off unit suffixes (e.g., get `42.3` instead of `42.3 km`) in your account preferences under **No suffixes on tags**. Useful when you want to build your own formatted strings.
+</Tip>
+
+---
+
+## Location tags
+
+Location tags are reverse-geocoded from the activity's GPS coordinates. They require that the activity has location data and a PRO subscription.
+
+| Tag | Example output | Notes |
+|---|---|---|
+| `${city}` | `Berlin` | City of the activity start (falls back to mid or end point) |
+| `${cityStart}` | `Berlin` | City where the activity started |
+| `${cityMid}` | `Potsdam` | City at the midpoint of the route |
+| `${cityEnd}` | `Spandau` | City where the activity ended |
+| `${countryStart}` | `Germany` | Country at the start |
+| `${countryEnd}` | `Germany` | Country at the end |
+
+<Note>
+  All city tags — `${city}`, `${cityStart}`, `${cityMid}`, and `${cityEnd}` — require a PRO subscription. Country tags (`${countryStart}`, `${countryEnd}`) are available to all users.
+</Note>
+
+---
+
+## Weather tags
+
+Weather tags fetch conditions at the activity's location and time. They require GPS data and a configured weather provider.
+
+| Tag | Example output | Notes |
+|---|---|---|
+| `${weather.temperature}` | `18 °C` | Temperature at activity midpoint |
+| `${weather.windSpeed}` | `14 kph` | Wind speed |
+| `${weather.humidity}` | `62 %` | Relative humidity |
+| `${weather.precipitation}` | `Rain` | Precipitation type or description |
+| `${weather.summary}` | `Partly cloudy` | Short weather summary |
+| `${weather.aqi}` | `2` | Air Quality Index (1–5 scale) |
+| `${weather.start.temperature}` | `15 °C` | Temperature at the start of the activity |
+| `${weather.end.temperature}` | `21 °C` | Temperature at the end of the activity |
+
+Replace `.temperature` with any other weather property to get start/end-specific values, e.g., `${weather.start.windSpeed}`.
+
+---
+
+## Music tags
+
+Music tags pull track information from Spotify or Last.fm for the activity's time window. Link your account in account settings to enable them. The starting track is available to all users; the remaining music tags require PRO.
+
+| Tag | Example output | Notes |
+|---|---|---|
+| `${spotify.trackStart}` | `Bohemian Rhapsody` | First track playing when the activity started |
+| `${spotify.trackEnd}` | `Don't Stop Me Now` | Last track playing when the activity ended. PRO only. |
+| `${spotify.trackList}` | *(full list)* | All tracks played, one per line, with `#spotify` tag. PRO only. |
+| `${spotify.lyricsStart}` | *(lyrics)* | Lyrics of the starting track. PRO only. |
+| `${spotify.lyricsEnd}` | *(lyrics)* | Lyrics of the ending track. PRO only. |
+| `${lastfm.trackStart}` | `Thunderstruck` | First scrobbled track during the activity |
+| `${lastfm.trackEnd}` | `Back in Black` | Last scrobbled track during the activity. PRO only. |
+| `${lastfm.trackList}` | *(full list)* | All scrobbled tracks, one per line. PRO only. |
+
+<Note>
+  `${spotify.trackEnd}`, `${spotify.trackList}`, `${spotify.lyricsStart}`, `${spotify.lyricsEnd}` and the equivalent Last.fm tags require PRO.
+</Note>
+
+---
+
+## Gear tags
+
+Gear tags reference the bike or shoes assigned to the activity at the time of processing.
+
+| Tag | Example output | Notes |
+|---|---|---|
+| `${gear}` | `Cervélo R5` | Name of the assigned gear item |
+
+The gear tag uses the gear's name as stored in your Strava equipment list.
+
+---
+
+## Counter tags
+
+Counter tags display the value of an automation's built-in cumulative counter.
+
+| Tag | Example output | Notes |
+|---|---|---|
+| `${counter}` | `47` | Cumulative count of times this automation has fired (or cumulative metric total if a counter property is set) |
+
+Configure the counter in the automation's advanced settings. Choose **Counter property** to accumulate a metric (e.g., total distance across all matched activities) instead of a simple event count. Counters reset annually unless you disable the reset.
+
+*Example:* `Commute #${counter} — ${distance}` produces `Commute #47 — 12.4 km` on your 47th commute of the year.
+
+---
+
+## Records tags
+
+| Tag | Example output | Notes |
+|---|---|---|
+| `${newRecords}` | *(list of records)* | Lists any new all-time personal records set in this activity |
+
+---
+
+## Garmin & Wahoo tags (PRO)
+
+These tags pull data from the matching FIT file activity. They require a linked Garmin Connect or Wahoo account and a PRO subscription.
+
+| Tag | Example output | Notes |
+|---|---|---|
+| `${garmin.name}` | `Morning Ride` | Garmin's internal activity name |
+| `${garmin.workoutName}` | `Threshold Intervals` | Structured workout name from Garmin |
+| `${garmin.workoutNotes}` | `5x8 min at FTP` | Workout notes from Garmin |
+| `${garmin.sportProfile}` | `Road Cycling` | Sport profile on the Garmin device |
+| `${garmin.primaryBenefit}` | `Tempo` | Garmin's training benefit label |
+| `${garmin.trainingLoad}` | `234` | Garmin training load value |
+| `${garmin.tss}` | `98` | Training stress score from the FIT file |
+| `${garmin.intensityFactor}` | `0.83` | Intensity factor |
+| `${garmin.aerobicTrainingEffect}` | `3.5` | Aerobic training effect (0–5) |
+| `${garmin.anaerobicTrainingEffect}` | `1.2` | Anaerobic training effect (0–5) |
+| `${garmin.splitsText}` | *(split summary)* | Formatted summary of all splits |
+| `${wahoo.name}` | `Afternoon Ride` | Wahoo's internal activity name |
+| `${wahoo.splitsText}` | *(split summary)* | Formatted summary of all Wahoo splits |
+
+---
+
+## Full example
+
+Here is a richly templated activity name and description using multiple tag categories:
+
+**Name action (Set):**
+```
+${weekday} ${sportType} in ${city} — ${distance} @ ${speedAvg}
+```
+
+**Description action (Set):**
+```
+City: ${cityStart} to ${cityEnd}
+Moving time: ${movingTime}  |  Elevation: ${elevationGain}
+Avg HR: ${hrAvg}  |  Avg power: ${wattsAvg}
+Weather: ${weather.summary}, ${weather.temperature}
+Started with: ${spotify.trackStart}
+```
+
+**Result:**
+```
+Tuesday Ride in Berlin — 42.3 km @ 28.4 km/h
+
+City: Berlin to Potsdam
+Moving time: 01:29  |  Elevation: 380 m
+Avg HR: 152 bpm  |  Avg power: 218 watts
+Weather: Partly cloudy, 19 °C
+Started with: Harder Better Faster Stronger
+```

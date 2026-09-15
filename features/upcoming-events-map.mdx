@@ -1,0 +1,68 @@
+---
+title: "Club Events Map: Upcoming Routes and Weather Forecasts"
+sidebarTitle: "Events Map"
+description: "View upcoming Strava club events on an interactive map with color-coded route polylines, weather forecasts, and GPX downloads for offline navigation."
+---
+
+The Upcoming Events Map plots every scheduled event from your Strava clubs on an interactive Google Maps view, complete with route polylines, distance and time estimates, and — for PRO users — a multi-point weather forecast. It's the fastest way to pick your next club ride or run and know what conditions to expect.
+
+<Note>
+  The map only shows events from clubs you've already joined on Strava. Join a club on Strava first, then return to this page to see its events.
+</Note>
+
+## Accessing the map
+
+Select **Map** in the top navigation to open the Upcoming Events Map. The page loads all of your clubs' upcoming events along with their route data — this can take up to two minutes while Strautomator fetches polylines from Strava.
+
+## Map features
+
+### Color-coded route polylines
+
+Each event's route is drawn on the map in a distinct color, making it easy to distinguish overlapping courses at a glance. Routes with no Strava route attached show only a start-point marker.
+
+### Interacting with events
+
+- **Click a map marker** — opens an info panel with the event title, date, distance, and estimated ride or run time.
+- **Click a table row** — centers the map on that event's route and highlights the polyline.
+- **Hover over a table row** — temporarily highlights the corresponding route on the map so you can locate it quickly.
+
+### Map overlays
+
+Use the checkboxes above the event table to toggle two optional overlays:
+
+| Overlay | What it shows |
+|---|---|
+| Show traffic and road blocks | Real-time traffic conditions and road closures |
+| Show cycling lanes and paths | Dedicated cycling infrastructure along the route |
+
+### Event table
+
+The table below the map lists all upcoming events with the following columns:
+
+| Column | Details |
+|---|---|
+| Date | Day, time, and how many days ahead the event is |
+| Title | Event name (click to focus the map on its route) |
+| Details | Distance and estimated completion time |
+| Weather | Temperature and conditions at key route points (PRO) |
+| Joined | Checkmark if you've RSVPed to the event on Strava |
+| Map | Toggle to show or hide that route on the map |
+
+## Weather forecast (PRO)
+
+For events scheduled within the next 5 days that have a mapped route, Strautomator fetches a weather forecast for the **start**, **midpoint**, and **end** of the route. The table displays:
+
+- Weather condition icons for each checkpoint
+- Minimum and maximum temperature across the route
+
+<Info>
+  Weather forecasts require the event to have an attached Strava route with GPS data. Events without a route show a dash in the Weather column.
+</Info>
+
+## Download routes as GPX (PRO)
+
+Click **Download routes** below the event table to download all event routes as a ZIP archive of GPX files. Load them onto your GPS device or navigation app before the event.
+
+<Note>
+  Route downloads are a PRO feature. Komoot routes are not supported for download. Only routes published directly on Strava can be exported.
+</Note>

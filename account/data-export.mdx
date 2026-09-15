@@ -1,0 +1,83 @@
+---
+title: "Download Your Strautomator Data — GDPR Data Export"
+sidebarTitle: "Data Export"
+description: "Export a full copy of your Strautomator data — automations, GearWear configs, history, and preferences — as a downloadable JSON archive."
+---
+
+Under the General Data Protection Regulation (GDPR) and equivalent privacy laws, you have the right to receive a copy of all personal data that Strautomator holds about you. The data export feature lets you download everything in a structured, machine-readable format at any time, at no cost, directly from your account page.
+
+## What Is Included in the Export
+
+The downloaded archive contains all data that Strautomator stores under your account:
+
+<CardGroup cols={2}>
+  <Card title="Automations (Recipes)" icon="wand-magic-sparkles">
+    Every automation you have created, including conditions, actions, names, and enable/disable status.
+  </Card>
+  <Card title="GearWear Configurations" icon="gear">
+    All your GearWear component definitions, distance and time thresholds, and current component totals.
+  </Card>
+  <Card title="Account Preferences" icon="sliders">
+    All settings from your Account → Settings page: language, units, privacy preferences, weather provider, and more.
+  </Card>
+  <Card title="Automation History" icon="clock-rotate-left">
+    The log of automations that have run against your activities, within your plan's history retention window.
+  </Card>
+  <Card title="Personal Records" icon="trophy">
+    Your tracked personal records for each supported sport and record type.
+  </Card>
+  <Card title="Calendar Settings" icon="calendar">
+    Your Strautomator calendar configuration and any custom calendar preferences (PRO).
+  </Card>
+</CardGroup>
+
+<Note>
+  The export covers **Strautomator data only**. It does not include your Strava activities, routes, segments, or any other data that Strava holds. To export your Strava data, visit **Strava → Settings → My Account → Download or Delete Your Account**.
+</Note>
+
+---
+
+## How to Export Your Data
+
+<Steps>
+  <Step title="Open your Account page">
+    Log in to Strautomator and click your profile picture or name in the top navigation to go to your **Account** page.
+  </Step>
+  <Step title="Locate the Download My Data option">
+    Scroll to the bottom of the Account page and click **Download My Data**.
+  </Step>
+  <Step title="Confirm the request">
+    A confirmation dialog appears. Review the information and click **Confirm** to proceed. Strautomator begins generating your archive immediately.
+  </Step>
+  <Step title="Download the archive">
+    Once the archive is ready, a download link appears on the page. Click the link to save the file to your device. The archive is provided as a **JSON** file (or a ZIP containing JSON files) that you can open with any text editor or JSON viewer.
+  </Step>
+</Steps>
+
+---
+
+## About the Export Format
+
+The archive uses **JSON** (JavaScript Object Notation) — a plain-text, structured format that is both human-readable and easy to import into other tools. Each data category (automations, GearWear, preferences, history, records) is stored in its own clearly labelled section or file within the archive.
+
+```json
+{
+  "account": { ... },
+  "recipes": [ ... ],
+  "gearwear": [ ... ],
+  "activityHistory": [ ... ],
+  "personalRecords": { ... }
+}
+```
+
+You can use any JSON viewer (such as [jsonviewer.stack.hu](https://jsonviewer.stack.hu)) or a code editor like VS Code to browse the contents.
+
+---
+
+## GDPR and Your Rights
+
+Strautomator is committed to transparency about the data it holds. The data export feature fulfils your **right of access** and **right to data portability** under the GDPR. If you have questions about how your data is processed, or wish to request erasure, refer to the [Close Account](/account/close-account) guide or contact Strautomator support.
+
+<Tip>
+  Download a copy of your data before closing your account — once the account is deleted, all data is permanently erased and cannot be recovered.
+</Tip>

@@ -1,0 +1,169 @@
+---
+title: "Connect Spotify and Last.fm for Music-Based Automations"
+sidebarTitle: "Spotify & Last.fm"
+description: "Link Spotify or Last.fm to detect what you were listening to during an activity and use music as automation conditions and dynamic tags."
+---
+
+Music integrations let Strautomator check what you were listening to while you rode, ran, or trained — and use that information inside automations. You can match specific tracks or artists as automation conditions, or insert the song title and artist name directly into your activity name or description using dynamic tags.
+
+Both Spotify and Last.fm are supported. Connect one, both, or neither — and mix them freely with any other conditions in your automations.
+
+## Spotify
+
+Spotify integration connects securely to your account. When an activity is processed, Strautomator queries the Spotify API and checks which track was playing at the moment your activity started.
+
+### How to connect Spotify
+
+<Steps>
+  <Step title="Open your Account page">
+    Click your avatar in the top-right corner and select **Account**.
+  </Step>
+  <Step title="Go to Linked Accounts">
+    Scroll to the **Linked Accounts** section.
+  </Step>
+  <Step title="Link Spotify">
+    Click **Link Spotify**. You will be redirected to the Spotify authorization page.
+  </Step>
+  <Step title="Authorize Strautomator">
+    Log in to Spotify if prompted, then click **Agree** to grant Strautomator read access to your recently played tracks.
+  </Step>
+  <Step title="Return to Strautomator">
+    After authorization, Spotify redirects you back to Strautomator. Your Spotify account now appears as linked.
+  </Step>
+</Steps>
+
+### Re-authenticating Spotify
+
+Spotify connections can expire over time. If your Spotify integration shows as disconnected or music conditions stop matching, go to **Account → Linked Accounts** and use the **Re-authenticate** link next to Spotify. This restores the connection without needing to unlink and relink.
+
+### Spotify conditions and tags
+
+<Tabs>
+  <Tab title="Conditions">
+    Add a condition to your automation using the **Listened music on Spotify** field. Enter a track name or artist name to match against what was playing at the start of your activity.
+
+    Example: trigger a special automation name only when listening to your favourite artist.
+
+    ```
+    Condition: Listened music on Spotify → contains → "Metallica"
+    ```
+
+    <Note>
+      The Spotify condition (`spotify.track`) requires a **PRO subscription**.
+    </Note>
+  </Tab>
+  <Tab title="Tags">
+    Use the following dynamic tags in any automation action that sets a name, description, or private note:
+
+    | Tag | Description |
+    |---|---|
+    | `${spotify.trackStart}` | Track playing at the start of your activity |
+    | `${spotify.trackEnd}` | Track playing at the end of your activity (PRO) |
+    | `${spotify.trackList}` | Full list of tracks played during the activity, one per line (PRO) |
+    | `${spotify.lyricsStart}` | Lyrics of the track playing at the start (PRO) |
+    | `${spotify.lyricsEnd}` | Lyrics of the track playing at the end (PRO) |
+
+    **Example action value:**
+
+    ```
+    ${name} 🎵 ${spotify.trackStart}
+    ```
+
+    This appends the opening track to your activity name, producing something like:
+    **Morning Ride 🎵 Enter Sandman - Metallica**
+  </Tab>
+</Tabs>
+
+## Last.fm
+
+Last.fm uses your scrobble history rather than a live connection. Strautomator checks your Last.fm scrobble log and matches plays that overlap with your activity window. Because Last.fm records every song you play across all apps and devices, this works even when your phone was offline during the activity and synced scrobbles later.
+
+### How to connect Last.fm
+
+<Steps>
+  <Step title="Open your Account page">
+    Click your avatar and select **Account**.
+  </Step>
+  <Step title="Go to Linked Accounts">
+    Scroll to the **Linked Accounts** section.
+  </Step>
+  <Step title="Enter your Last.fm username">
+    No account connection is required — simply type your Last.fm username into the field and save. Strautomator uses the public Last.fm API to read your scrobble history.
+  </Step>
+</Steps>
+
+### Last.fm conditions and tags
+
+<Tabs>
+  <Tab title="Conditions">
+    Add a condition using the **Listened music on Last.fm** field. Enter a track name or artist name to check against your scrobble history for the activity period.
+
+    ```
+    Condition: Listened music on Last.fm → contains → "Pink Floyd"
+    ```
+
+    <Note>
+      The Last.fm condition (`lastfm.track`) requires a **PRO subscription**.
+    </Note>
+  </Tab>
+  <Tab title="Tags">
+    Use the following dynamic tags in any automation action:
+
+    | Tag | Description |
+    |---|---|
+    | `${lastfm.trackStart}` | First scrobbled track during the activity |
+    | `${lastfm.trackEnd}` | Last scrobbled track during the activity (PRO) |
+    | `${lastfm.trackList}` | Full scrobble list for the activity, one track per line (PRO) |
+    | `${lastfm.lyricsStart}` | Lyrics of the first scrobbled track (PRO) |
+    | `${lastfm.lyricsEnd}` | Lyrics of the last scrobbled track (PRO) |
+
+    **Example action value for a description:**
+
+    ```
+    🎵 ${lastfm.trackStart}
+    ```
+  </Tab>
+</Tabs>
+
+## Use-case examples
+
+<Accordion title="Add the opening track to every activity name">
+  Set an automation with no conditions (or scoped to a sport) and a **Set activity name** action:
+
+  ```
+  ${name} 🎵 ${spotify.trackStart}
+  ```
+
+  Every activity gets the song you were listening to at the start appended automatically.
+</Accordion>
+
+<Accordion title="Trigger a special name when listening to your favourite artist">
+  Create an automation with the condition **Listened music on Spotify contains "your artist"** and a **Set name** action:
+
+  ```
+  ${name} — powered by ${spotify.trackStart}
+  ```
+
+  Only fires when that artist appears in your Spotify history at the time the activity started.
+</Accordion>
+
+<Accordion title="Log a full playlist to the activity description">
+  Use the **Append to description** action (PRO) with:
+
+  ```
+  🎧 Soundtrack:
+  ${spotify.trackList}
+  ```
+
+  Strautomator writes every track played during the activity, one per line, into the description.
+</Accordion>
+
+## Plan availability
+
+| Feature | Free | PRO |
+|---|---|---|
+| Link Spotify | ✅ | ✅ |
+| Link Last.fm | ✅ | ✅ |
+| `trackStart` tag | ✅ | ✅ |
+| Music conditions (`spotify.track`, `lastfm.track`) | ❌ | ✅ |
+| `trackEnd`, `trackList`, `lyricsStart`, `lyricsEnd` tags | ❌ | ✅ |

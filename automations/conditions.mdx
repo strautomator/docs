@@ -1,0 +1,262 @@
+---
+title: "Automation Conditions: Every Trigger Type Explained"
+sidebarTitle: "Conditions"
+description: "A full reference for every condition type in Strautomator automations — sport, performance, time, location, weather, music, Garmin/Wahoo, and more."
+---
+
+Conditions are the filters that determine whether an automation fires for a given activity. Strautomator checks every condition in the automation against the incoming activity data. You can combine as many conditions as you need, and switch between AND / OR logic to express complex rules. Below is a complete reference grouped by category.
+
+## Operators
+
+Each condition uses one of the following operators to compare the activity value against your target:
+
+| Operator | Meaning |
+|---|---|
+| **is** | Exact match (boolean and enumerated fields) |
+| **is not** | Does not match |
+| **is exactly** | Text or number matches precisely |
+| **contains** | Text includes the value |
+| **does not contain** | Text does not include the value |
+| **has any value** | Field is set to anything |
+| **is around (plus or minus 10%)** | Number within 10% of target |
+| **is around (plus or minus 3%)** | Number within 3% of target |
+| **is lower than** | Number is less than target |
+| **is higher than** | Number is greater than target |
+| **within 60m of** | GPS location within 60 m (65 yd) |
+| **within 300m of** | GPS location within 300 m (328 yd) |
+| **within 650m of** | GPS location within 650 m (710 yd) |
+| **at least 60m away from** | GPS location at least 60 m (65 yd) from the pin |
+
+---
+
+<Accordion title="Sport & Activity Type">
+
+**Sport type** — Match activities by sport. Choose from any of Strava's 50+ sport types, including:
+
+- Cycling: `Ride`, `GravelRide`, `MountainBikeRide`, `EBikeRide`, `EMountainBikeRide`, `VirtualRide`
+- Running: `Run`, `TrailRun`, `VirtualRun`, `Walk`, `Hike`
+- Water: `Swim`, `Rowing`, `Kayaking`, `Canoeing`, `Surfing`, `Kitesurf`, `Windsurf`, `StandUpPaddling`, `VirtualRow`
+- Snow & ice: `AlpineSki`, `BackcountrySki`, `NordicSki`, `Snowboard`, `Snowshoe`, `IceSkate`, `RollerSki`
+- Gym & fitness: `Crossfit`, `Elliptical`, `HighIntensityIntervalTraining`, `WeightTraining`, `Pilates`, `Yoga`, `StairStepper`, `Workout`
+- Ball sports: `Soccer`, `Basketball`, `Tennis`, `Padel`, `Squash`, `Racquetball`, `Badminton`, `Volleyball`, `TableTennis`, `Pickleball`, `Cricket`, `Golf`
+- Other: `Dance`, `RockClimbing`, `Skateboard`, `Handcycle`, `InlineSkate`, `Wheelchair`, `Velomobile`, `Sail`
+
+You can select multiple sport types in a single condition using OR.
+
+**Tagged as commute** — `true` or `false`. Matches activities the athlete or Strava has flagged as a commute.
+
+**Using a trainer machine** — `true` or `false`. Matches virtual/indoor trainer activities.
+
+**Tagged as race** — `true` or `false`. Matches activities tagged as a race.
+
+**Tagged as workout** — `true` or `false`. Matches activities tagged as a workout.
+
+**Created manually** — `true` or `false`. Matches activities the athlete entered by hand rather than recorded with a device.
+
+**Flagged** — `true` or `false`. Matches activities that have been flagged on Strava.
+
+</Accordion>
+
+<Accordion title="Performance Metrics">
+
+**Distance** — Numeric, in km (or miles on an imperial account). Use greater/less than for ranges.
+
+**Average speed** — Numeric, in km/h (or mph). Useful for triggering on fast or recovery rides.
+
+**Maximum speed** — Numeric, in km/h or mph.
+
+**Average pace** — Time-based, in min/km (or min/mile, or min/100 m for swimming). Use "faster than" / "slower than" operators.
+
+**Maximum pace** — Time-based, fastest single km/mile pace achieved.
+
+**Elevation gain** — Numeric, in metres (or feet). Trigger on hilly vs. flat activities.
+
+**Elevation max** — Numeric, highest point reached in metres or feet.
+
+**Moving time** — Duration, in HH:MM format. Time the athlete was actually moving.
+
+**Total time** — Duration. Elapsed time from start to finish including stops.
+
+**Average heart rate** — Numeric, in bpm.
+
+**Max heart rate** — Numeric, in bpm.
+
+**Has a power meter** — `true` or `false`. Whether power data is present on the activity.
+
+**Average power** — Numeric, in watts.
+
+**Normalized power (NP)** — Numeric, weighted average power in watts.
+
+**Maximum power** — Numeric, in watts.
+
+**Watts / kg** — Numeric. Power-to-weight ratio calculated automatically.
+
+**Has a cadence sensor** — `true` or `false`.
+
+**Average cadence** — Numeric, in rpm (or spm for runs and swims).
+
+**Calories** — Numeric, in kcal.
+
+**Relative effort** — Numeric. Strava's heart-rate-based training load score.
+
+**Perceived exertion** — Numeric, 1–10 scale set by the athlete.
+
+**Training stress score (TSS)** — Numeric. Available when power data is present.
+
+**Lap count** — Numeric. Number of laps recorded on the device.
+
+**Lap distance** — Numeric. Distance of each lap.
+
+**Lap time** — Duration. Time of each lap.
+
+**CO2 saved** — Numeric, in kg. Available on commute activities where Strava calculates carbon savings.
+
+</Accordion>
+
+<Accordion title="Time-Based">
+
+**Start time** — Time of day (HH:MM, local time). Supports "is before", "is after", and approximate matching within plus or minus 1, 10, or 30 minutes.
+
+**End time** — Time when the activity finished.
+
+**Moving time / Total time** — Duration-based conditions, separate from start/end clock time.
+
+**Weekday** — Day of the week (Sunday through Saturday). Select one or multiple days.
+
+**Date range** — Matches activities that occurred within a specific calendar date range (e.g., June 1 to August 31 for a summer season). Supports recurring annual ranges using MM-DD format.
+
+**Is today's first activity (any sport)** — `true` or `false`. Fires only for the first activity of the day across all sports.
+
+**Is today's first activity (same sport)** — `true` or `false`. Fires only for the first activity of the day in the same sport type.
+
+**Automation is executing for the first time today** — `true` or `false`. The automation itself has not yet fired today, regardless of other activities.
+
+</Accordion>
+
+<Accordion title="Location">
+
+**Start location** — GPS coordinates. Matches activities that start within a chosen radius of a map pin. Use the map picker in the editor to select a location.
+
+**End location** — GPS coordinates. Matches activities that end near a pin.
+
+**Passes on location** — Checks the full activity polyline (route). Fires if the athlete passed through the selected area at any point during the activity.
+
+**Has location data** — `true` or `false`. Useful to skip activities recorded without GPS.
+
+**Start city** — Text. Reverse-geocoded city name where the activity started. Supports exact match and "is not" operators.
+
+**End city** — Text. Reverse-geocoded city name where the activity ended.
+
+**Start country** — Text. Country name where the activity started.
+
+**End country** — Text. Country name where the activity ended.
+
+<Note>
+  Start city and End city conditions require a PRO subscription.
+</Note>
+
+</Accordion>
+
+<Accordion title="Metadata">
+
+**Gear** — Select a specific bike or pair of shoes from your Strava equipment list. Useful to apply different rules per bike.
+
+**Device or app** — Text. Matches the device or app that recorded the activity (e.g., "Garmin", "Wahoo", "iPhone"). Supports contains/does not contain.
+
+**Name** — Text. Match against the activity name. Useful to trigger on activities already containing certain words.
+
+**Description** — Text. Match against the existing activity description.
+
+**Has photos** — `true` or `false`. Whether the athlete uploaded photos to the activity.
+
+**Has new 'all time' records** — `true` or `false`. Fires when the activity contains at least one new all-time personal record.
+
+**Has new segment KOMs** — `true` or `false`. Fires when the athlete achieved a KOM on any segment in this activity.
+
+**Has new segment PRs** — `true` or `false`. Fires when the athlete set a personal record on any segment.
+
+**Has the specified segment (ID)** — Text. Enter a Strava segment ID to check whether the activity passed through that specific segment.
+
+**Device temperature** — Numeric, in °C (or °F). Temperature reported by the recording device's internal sensor (not weather).
+
+</Accordion>
+
+<Accordion title="Weather">
+
+Weather conditions use data fetched from your configured weather provider at the time and location of the activity. Activities must have GPS data for weather conditions to work.
+
+**Weather temperature** — Numeric, in °C (or °F based on your weather unit preference). Matches temperature at the start or end of the activity.
+
+**Weather wind speed** — Numeric, in km/h (or mph). Wind speed at the activity location.
+
+**Weather humidity** — Numeric, percentage (0–100).
+
+**Air Quality Index (AQI)** — Numeric, 1–5 scale. Triggers on poor air quality days.
+
+<Note>
+  PRO users can choose their preferred weather data provider in account settings.
+</Note>
+
+</Accordion>
+
+<Accordion title="Music (PRO)">
+
+Music conditions check which tracks you were listening to during the activity window. They require a PRO subscription and a linked Spotify or Last.fm account.
+
+**Listened music on Spotify** — Text. Matches a track title (or part of it) played during the activity on Spotify. Use "has any value" to fire whenever music was playing.
+
+**Listened music on Last.fm** — Text. Same as Spotify but sourced from your Last.fm scrobbles.
+
+<Note>
+  Music conditions require a PRO subscription and a linked Spotify or Last.fm account in your account settings.
+</Note>
+
+</Accordion>
+
+<Accordion title="Garmin & Wahoo (PRO)">
+
+These conditions read data directly from the FIT file generated by your Garmin or Wahoo device, supplementing the data Strava provides. They require a linked Garmin Connect or Wahoo account and a PRO subscription.
+
+**Garmin sensor ID** — Text. Match on the sensor ID (ANT+ or BLE device) used during the activity.
+
+**Garmin sport profile name** — Text. The sport profile configured on the Garmin device used to record the activity.
+
+**Garmin activity name** — Text. The name Garmin assigned to the activity internally.
+
+**Garmin workout name** — Text. The name of the structured workout if one was running on the device.
+
+**Garmin workout notes** — Text. Notes from the structured workout plan.
+
+**Garmin primary benefit** — Text. Garmin's training benefit classification (e.g., "Base", "Tempo", "VO2 Max").
+
+**Garmin TSS** — Numeric. Training stress score from the Garmin FIT file.
+
+**Garmin training load** — Numeric. Garmin's training load metric.
+
+**Garmin intensity factor** — Numeric. Intensity factor from the Garmin FIT file.
+
+**Garmin aerobic training effect** — Numeric, 0–5. Garmin aerobic training effect score.
+
+**Garmin anaerobic training effect** — Numeric, 0–5. Garmin anaerobic training effect score.
+
+**Garmin pedal smoothness** — Numeric, percentage. Requires a compatible power meter.
+
+**Garmin pedal torque effectiveness** — Numeric, percentage. Requires a compatible power meter.
+
+**Wahoo sensor ID** — Text. Match on the sensor ID used during the Wahoo-recorded activity.
+
+<Note>
+  All Garmin and Wahoo conditions require a PRO subscription and a linked Garmin Connect or Wahoo account.
+</Note>
+
+</Accordion>
+
+<Accordion title="Counters">
+
+Counters let you build cumulative tallies across activities. Each time an automation fires, Strautomator can increment an internal counter by 1 (or by the value of a chosen metric, such as distance or elevation gain). You can then use the `${counter}` dynamic tag in action templates to display or act on the running total.
+
+The counter condition itself is not a standalone filter — it is configured as part of the automation's counter settings. Counters reset at the start of each calendar year by default, but you can disable the annual reset per automation.
+
+See [Dynamic Tags](/automations/dynamic-tags) for how to reference counter values in activity names and descriptions.
+
+</Accordion>

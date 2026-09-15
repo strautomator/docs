@@ -1,0 +1,51 @@
+---
+title: "Strautomator: Automate Your Strava Activities Effortlessly"
+sidebarTitle: "Introduction"
+description: "Strautomator connects to Strava and automatically updates your activities using rule-based automations — rename, tag, track gear, log weather, and more."
+---
+
+Strautomator is an automation platform built for Strava athletes who are tired of manually updating every activity after a workout. Instead of logging in after each ride, run, or swim to fix names, assign gear, or add notes, you define a set of rules — called automations — and Strautomator handles the rest automatically, every time a new activity syncs to Strava.
+
+## How it works
+
+Strautomator connects to your Strava account using OAuth, so there's no separate password to manage. Once connected, every new activity you record is picked up automatically — Strautomator evaluates it against your automations, runs any matching actions, and writes the updates back to Strava, usually within seconds of your activity finishing.
+
+You only need to configure your automations once. After that, every new activity is processed automatically in the background.
+
+## What you can do
+
+Strautomator covers a wide range of use cases for athletes of all disciplines:
+
+- **Rename and describe activities** — Set, prepend, or append text to activity names and descriptions. Use dynamic tags that insert live values like distance, speed, elevation, or heart rate directly into the name.
+- **AI-generated content** — Let AI (ChatGPT, Gemini, Claude, and others) write unique activity names, descriptions, or training insights based on your effort, weather, and performance data.
+- **Gear tracking with GearWear** — Monitor the mileage and hours on individual components (chains, tyres, shoes) and receive email alerts when they approach your replacement thresholds.
+- **Weather data** — Automatically embed weather conditions — temperature, wind speed, humidity, and icons — into activity names or descriptions using data from the activity's start location and time.
+- **Personal records** — Track your all-time bests for distance, speed, power, heart rate, and more. Use personal record conditions inside automations to celebrate or flag standout efforts.
+- **Calendar export** — Subscribe to a live `.ics` calendar feed of your Strava activities and upcoming club events from any calendar app.
+- **Device integrations** — Link your Garmin or Wahoo account to pull additional data from the original FIT file, including sensor battery levels, training load, and workout notes.
+- **FTP auto-update** — Strautomator can estimate your Functional Threshold Power from recent efforts and push it back to Strava automatically.
+
+## Free and PRO plans
+
+Strautomator is free to use for core features. The Free plan supports up to 3 automations, 2 GearWear configurations, 90 days of calendar history, and personal records for rides and runs. The PRO plan removes those limits and unlocks advanced features like unlimited automations, AI content generation, Garmin and Wahoo integration, webhooks, extended calendar history, and more.
+
+<Card title="Compare Free vs. PRO" icon="arrow-right" href="/free-vs-pro">
+  See a full breakdown of what's included in each plan and how to subscribe.
+</Card>
+
+## Explore Strautomator
+
+<CardGroup cols={2}>
+  <Card title="Quick Start" icon="rocket" href="/quickstart">
+    Connect your Strava account and create your first automation in under five minutes.
+  </Card>
+  <Card title="Automations" icon="bolt" href="/automations/overview">
+    Learn how to build conditions and actions to automate any activity update.
+  </Card>
+  <Card title="GearWear" icon="wrench" href="/gear/overview">
+    Set up component tracking and get notified before your gear wears out.
+  </Card>
+  <Card title="Calendar Export" icon="calendar" href="/features/calendar">
+    Subscribe to a live calendar feed of your activities and club events.
+  </Card>
+</CardGroup>

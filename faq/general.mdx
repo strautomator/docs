@@ -1,0 +1,99 @@
+---
+title: "Strautomator General FAQ — Common Questions Answered"
+sidebarTitle: "General"
+description: "Answers to the most common questions about what Strautomator is, how it connects to Strava, what data it stores, and how it works."
+---
+
+If you're new to Strautomator or just want to understand how the platform works before diving in, this page answers the most frequently asked general questions — from how the Strava connection works to what happens when Strava goes down.
+
+<AccordionGroup>
+
+<Accordion title="What is Strautomator?">
+  Strautomator is an automation platform for Strava athletes. You define rules — called automations — that describe conditions (for example, "this was a morning ride over 50 km") and actions (for example, "set the activity name to 'Epic Morning Ride'"). Every time a new activity syncs to Strava, Strautomator evaluates it against your rules and applies matching updates automatically, without any manual effort on your part.
+
+  Beyond simple renaming, Strautomator can assign gear, embed weather data, generate AI-written descriptions, track component wear on your bike or running shoes, export a live calendar feed, and pull in extra data from Garmin or Wahoo devices.
+</Accordion>
+
+<Accordion title="How does Strautomator connect to Strava?">
+  Strautomator uses Strava's standard OAuth authorization flow. When you first sign in, you're redirected to Strava's website where you grant Strautomator the permissions it needs. No separate password is required — Strava handles the authentication.
+
+  Once you've authorized the connection, Strava registers Strautomator as a webhook subscriber. This means Strava automatically notifies Strautomator every time you record a new activity or update an existing one. Strautomator then fetches the activity details, evaluates your automations, and writes any updates back to Strava on your behalf.
+
+  You only need to authorize the connection once. If you ever need to re-authorize (for example, after revoking access in Strava), simply log out of Strautomator and sign back in with "Connect with Strava."
+</Accordion>
+
+<Accordion title="Does Strautomator store my Strava activities?">
+  Strautomator stores lightweight metadata about processed activities — things like the activity ID, date, sport type, distance, and which automations fired — so it can display your automation history and track personal records. It does not store the full activity content, GPS routes, or media.
+
+  Your raw activity data lives on Strava's servers. Strautomator only reads what it needs at the moment it processes an activity, and the results of that processing are written back to Strava. If you close your Strautomator account, you can request full deletion of any stored metadata.
+</Accordion>
+
+<Accordion title="What permissions does Strautomator need on Strava?">
+  Strautomator requests the minimum permissions needed to do its job:
+
+  - **Read activities** — to fetch the data needed to evaluate your automation conditions (distance, speed, sport type, gear, etc.)
+  - **Write activities** — to update activity names, descriptions, sport type, and gear assignments after automations fire
+  - **Read clubs** — to power the calendar export feature (upcoming club events) and the map of upcoming events
+
+  Strautomator does not request access to your heart rate, power, or GPS route data beyond what Strava includes in the standard activity summary. It does not post to your feed, follow/unfollow athletes, or access your private messages.
+</Accordion>
+
+<Accordion title="How quickly does Strautomator process activities?">
+  In most cases, your activity is processed within a few seconds to a couple of minutes after Strava delivers the webhook notification. Strava typically sends this notification shortly after you finish and save your activity — so by the time you open the app, your activity name may already be updated.
+
+  Timing can vary if:
+
+  - **Delayed processing is enabled** — You can turn on a delay (under Account Settings) to give yourself time to edit activities before automations fire. If this is on, processing waits for the configured delay period.
+  - **Strava API congestion** — During high-traffic windows, Strava's webhook delivery can lag by several minutes. Strautomator processes activities as soon as it receives the notification.
+  - **Strautomator queue** — During very high-volume periods, there may be a brief queue. Your activity will still be processed; it may just take a few extra minutes.
+</Accordion>
+
+<Accordion title="Can I use Strautomator on mobile?">
+  Yes. Strautomator's web app is designed to be responsive and works well on smartphones and tablets. You can create and edit automations, check activity history, and manage your account from any mobile browser without needing to install anything.
+
+  There is currently no dedicated native iOS or Android app. All features are accessible through the web interface at strautomator.com.
+</Accordion>
+
+<Accordion title="In what languages is Strautomator available?">
+  Strautomator's interface is available in **11 languages**:
+
+  - English
+  - German
+  - Spanish
+  - French
+  - Italian
+  - Lithuanian
+  - Dutch
+  - Polish
+  - Portuguese
+  - Swedish
+  - Slovak
+
+  The language is detected automatically based on your browser settings. You can also set your preferred language manually in Account Settings.
+</Accordion>
+
+<Accordion title="Is my data private?">
+  Yes. Activity data fetched from Strava is used only to evaluate your automation conditions and perform the actions you've configured. Strautomator does not sell your data or share it with third parties for advertising purposes.
+
+  If you want an extra layer of privacy, enable **Privacy Mode** in Account Settings. With Privacy Mode on, Strautomator further restricts how your activity data is handled and stored — for example, limiting the amount of metadata retained after processing.
+
+  Strautomator is an open-source project, so you can review exactly how data is handled in the source code at [github.com/strautomator](https://github.com/strautomator).
+</Accordion>
+
+<Accordion title="What happens if Strava is down?">
+  Strautomator monitors Strava's API status and displays an alert banner on your dashboard when Strava is experiencing an outage or degraded performance. You don't need to do anything — this is just to explain why processing might be delayed.
+
+  When Strava recovers and resumes delivering webhooks, Strautomator processes the queued activities normally. In most cases, activities recorded during an outage are still delivered by Strava once the incident resolves, so your automations will still fire — just later than usual.
+
+  <Note>
+    If an activity was recorded during a prolonged outage, check the Recent Activities page after Strava recovers to confirm it was processed. You can also use Batch Sync to manually trigger processing if needed.
+  </Note>
+</Accordion>
+
+<Accordion title="How do I contact support?">
+  The quickest way to get help is through the **chat widget** on the Help page inside Strautomator. You can also connect with other users and the Strautomator community on the community forum, where common questions are answered and feature requests are discussed.
+
+  For billing-specific issues, see the [Billing FAQ](/faq/billing). For step-by-step troubleshooting, see the [Troubleshooting guide](/faq/troubleshooting).
+</Accordion>
+
+</AccordionGroup>

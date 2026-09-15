@@ -1,0 +1,48 @@
+---
+title: "GearWear: Track Component Life on Your Bikes and Shoes"
+sidebarTitle: "Overview"
+description: "Monitor the distance and hours on every component of your bikes and shoes, and get alerted automatically when a part is due for replacement."
+---
+
+GearWear turns Strautomator into a maintenance log that runs itself. Every time Strautomator processes one of your Strava activities, it adds that activity's distance and moving time to the running totals of every component you have configured on the gear used for that activity. When a component crosses a threshold you set — say, 3,500 km on a chain — Strautomator sends you an in-app notification and an email so you can order a replacement before your drivetrain skips a beat.
+
+## How GearWear works
+
+When you complete an activity on Strava, Strautomator receives a webhook event and processes it automatically. As part of that processing, Strautomator identifies which bike or shoes you used and credits their distance (and moving time) to every component in that gear's configuration.
+
+<Note>
+  Gear tracking happens with a configurable delay (default: 2 days) so you have time to correct the gear assignment on a recent activity before the totals are locked in. PRO members can reduce this delay to as little as 1 day, and gear tracking also updates instantly for activities whose gear was changed by an automation. Adjust the delay in **Account → Preferences → GearWear delay**.
+</Note>
+
+The accumulated totals appear as progress bars on the **Gear** page. Once a component reaches its distance or time threshold, it appears highlighted and an alert is dispatched. After you replace the component, click **Reset** to zero out the counter and start a fresh tracking cycle. Strautomator records the reset date and the mileage at the time of reset in the component's history.
+
+## Getting started
+
+Your bikes and shoes are imported automatically from Strava. Navigate to the **Gear** page to see all your equipment. Items without a GearWear configuration appear at the bottom of the list — click the **+** button next to a bike or shoe to create a new configuration and begin adding components.
+
+<Info>
+  GearWear only tracks gear registered on Strava. If a bike or shoe is missing, visit [Strava Gear Settings](https://www.strava.com/settings/gear) to add it, then refresh the Gear page.
+</Info>
+
+## Plan limits
+
+| Feature | Free | PRO |
+|---|---|---|
+| GearWear configurations | 2 | Unlimited |
+| Tracking delay | 2 days (adjustable) | 1 day minimum (adjustable) |
+| Battery tracker | — | ✓ |
+| Instant update when gear changed by automation | — | ✓ |
+| Rollback when activity deleted or gear changed | — | ✓ |
+
+If you downgrade from PRO to Free, configurations beyond the Free limit are disabled automatically. Upgrade back to PRO to re-enable them without losing any history.
+
+## Explore GearWear
+
+<CardGroup cols={2}>
+  <Card title="Components" icon="wrench" href="/gear/components">
+    Learn how to add components to a bike or shoe, set distance and time thresholds, configure pre-alerts, and reset counters after a replacement.
+  </Card>
+  <Card title="Battery Tracker" icon="battery-half" href="/gear/battery-tracker">
+    Automatically monitor the battery levels of your ANT+ sensors — heart rate monitors, power meters, cadence sensors, and GPS devices — via your Garmin or Wahoo integration.
+  </Card>
+</CardGroup>

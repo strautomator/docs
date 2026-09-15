@@ -1,0 +1,88 @@
+---
+title: "Debug Strava Activities and Manually Trigger Automations"
+sidebarTitle: "Activity Debug"
+description: "Inspect raw Strava activity data and manually re-run your automations on any activity to test and troubleshoot your rules without waiting for a new sync."
+---
+
+The Recent Activities page is your main tool for testing automations and diagnosing unexpected behavior. For every activity in the list you can inspect exactly what data Strautomator received from Strava, and you can re-run your automations on demand without waiting for a new real-world activity.
+
+## Recent Activities page
+
+Navigate to **Activities → Recent Activities** to see your most recent Strava activities. Each row shows the activity name, date, distance, and duration. Two action buttons appear on each row:
+
+<CardGroup cols={2}>
+  <Card title="Debug" icon="bug">
+    Opens a detailed view of every property Strautomator received from Strava for that activity — exact numeric values, GPS coordinates, device name, flags, and more. Use this to understand precisely what values your automation conditions are evaluating.
+  </Card>
+  <Card title="Process" icon="play">
+    Manually triggers all applicable automations to run against that activity right now. Use this to test a new or edited automation without waiting for a new activity to sync from Strava.
+  </Card>
+</CardGroup>
+
+## Debugging a specific activity
+
+You don't need to scroll through the list to find a particular activity. At the bottom of the Recent Activities table, paste any **Strava activity URL or ID** into the input field, then click **Debug** or **Process** to act on it directly.
+
+<Steps>
+  <Step title="Find the activity ID">
+    Open the activity on Strava. The ID is the number in the URL: `strava.com/activities/12345678901`.
+  </Step>
+  <Step title="Paste it into Strautomator">
+    On the **Recent Activities** page, paste the URL or just the numeric ID into the **ID or URL** field at the bottom of the table.
+  </Step>
+  <Step title="Debug or Process">
+    Click **Debug** to inspect the raw activity data, or **Process** to run your automations against it.
+  </Step>
+</Steps>
+
+## Understanding the debug view
+
+The debug view displays all activity properties as key–value pairs. Useful fields to check when troubleshooting automation conditions include:
+
+| Property | What to look for |
+|---|---|
+| `sportType` | The exact sport type string Strautomator uses for sport-based conditions |
+| `speedAvg` / `speedMax` | Numeric speed values in the units your conditions reference |
+| `distance` | Distance in kilometers or miles depending on your profile units |
+| `device` | The device name string — useful for device-based conditions |
+| `commute` | `true` or `false` — check if Strava is flagging the activity as a commute |
+| `newRecords` | Array of record field names broken by this activity |
+
+If Garmin or Wahoo metadata is available (PRO integration), it appears in separate sections below the main activity data.
+
+## Batch sync: process many activities at once
+
+To retroactively apply your current automations to a large number of historical activities, use batch processing instead of processing them one by one.
+
+From the **Recent Activities** page, click **Proceed to batch processing**, or navigate directly to **Activities → Batch Sync**. Batch sync lets you define a date range and run all matching automations across your history.
+
+<Warning>
+  Batch sync updates your activities on Strava. If your automations rename activities or change descriptions, those changes will be applied to every matching historical activity. Review your automation rules carefully before running a large batch.
+</Warning>
+
+<Note>
+  You can only run one batch sync every 24 hours. If you've triggered a batch sync recently, you'll need to wait before starting another one.
+</Note>
+
+## FIT file upload (PRO)
+
+If you use Garmin or Wahoo devices and recently connected them to Strautomator, you can backfill older activities with sensor data (device ID, battery level, sensor readings) that Strava doesn't expose through its API.
+
+<Steps>
+  <Step title="Export your FIT files">
+    Export FIT files from Garmin Connect or the Wahoo app, then compress them all into a single ZIP archive. Archives support up to 100 FIT files.
+  </Step>
+  <Step title="Upload the archive">
+    Navigate to **Activities → FIT Upload**. Select your ZIP file and click **Upload and process**.
+  </Step>
+  <Step title="Wait for processing">
+    Strautomator extracts and processes each FIT file individually, matching it to the corresponding Strava activity by date and start time. A progress bar tracks the upload. Larger archives take longer.
+  </Step>
+  <Step title="Review results">
+    Once complete, Strautomator shows a summary of processed and failed files. Matched activities are enriched with the FIT sensor data, making them available for automations that use Garmin- or Wahoo-specific conditions.
+  </Step>
+</Steps>
+
+<Note>
+  FIT file upload is a PRO feature. Parsed FIT data is stored temporarily and automatically deleted after a few days. The feature supports Garmin and Wahoo FIT formats only.
+</Note>

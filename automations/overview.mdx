@@ -1,0 +1,92 @@
+---
+title: "How Strautomator Automations Work: A Complete Guide"
+sidebarTitle: "Overview"
+description: "Learn how Strautomator automations (recipes) work: conditions, actions, logical operators, default automations, and how to manage them."
+---
+
+Automations are the core of Strautomator. Each automation is a named rule that Strautomator evaluates every time Strava syncs a new activity. When an activity matches all the conditions you define, Strautomator immediately executes the associated actions, updating the activity on Strava on your behalf.
+
+## What an automation is
+
+Every automation has three parts:
+
+- **Name** — a short label you choose so you can recognize the automation at a glance.
+- **Conditions** — one or more checks against activity data (sport type, distance, location, weather, and more). All conditions must pass before actions run (unless you switch to OR logic).
+- **Actions** — the changes Strautomator makes to the activity when conditions pass (rename it, assign gear, add a description, mute it, and more).
+
+A single automation can contain multiple conditions and multiple actions. Strautomator evaluates them in order and executes all matching actions in one pass.
+
+## How automations run
+
+Strautomator connects to Strava via webhook. Every time you finish an activity and Strava syncs it — whether from your watch, phone, or cycling computer — Strava pushes a notification to Strautomator within seconds. Strautomator then:
+
+<Steps>
+  <Step title="Fetches activity data">
+    Strautomator retrieves the full activity details from Strava, including performance metrics, GPS data, gear, and device information.
+  </Step>
+  <Step title="Evaluates each automation">
+    All your enabled automations are evaluated in order. For each one, Strautomator checks every condition against the activity data.
+  </Step>
+  <Step title="Runs matching actions">
+    If an automation's conditions pass, Strautomator executes its actions — updating the activity name, description, gear, privacy settings, and anything else you configured.
+  </Step>
+  <Step title="Pushes changes back to Strava">
+    All changes are written back to Strava through the API, usually within a few seconds of the original sync.
+  </Step>
+</Steps>
+
+## Logical operators: AND vs. OR
+
+By default, all conditions in an automation must pass for it to trigger (**AND** logic). You can switch any automation to **OR** logic, which means the automation fires if *any* condition passes.
+
+You can also set a separate **same-property operator** that controls how multiple conditions on the *same* field are combined. For example, you could configure "Sport type is Ride **OR** GravelRide" while still requiring all other conditions to match with AND.
+
+<Note>
+  You can select AND/OR in the automation editor, below the conditions list.
+</Note>
+
+## Kill switch
+
+Enable the **kill switch** on an automation to stop Strautomator from evaluating any subsequent automations once this one fires. Use this when you want a specific rule to take priority and prevent lower-priority automations from overriding its changes.
+
+Automations run in the order displayed on your automations list. Drag and drop to reorder them; lower numbers execute first.
+
+## Default automations
+
+A **default automation** has no conditions at all. Instead, it is tied to a specific sport type (for example, Ride or Run). Strautomator fires it automatically for every activity of that sport type, with no further checking required. Default automations always run before conditional automations.
+
+Use a default automation when you want a consistent baseline — for example, always assigning your road bike to every Ride activity, regardless of any other factors.
+
+## Managing your automations
+
+From the **Automations** page you can:
+
+- **Enable / disable** — toggle any automation on or off without deleting it.
+- **Reorder** — drag automations into the order you want them evaluated.
+- **Duplicate** — copy an existing automation as a starting point for a new one.
+- **Edit** — update the title, conditions, or actions at any time.
+- **Delete** — permanently remove an automation.
+
+<Note>
+  Free accounts can have up to 3 active automations. Upgrade to PRO for unlimited automations.
+</Note>
+
+## Learn more
+
+<CardGroup cols={2}>
+  <Card title="Conditions" icon="filter" href="/automations/conditions">
+    Every condition type explained, from sport type and distance to weather, music, and Garmin data.
+  </Card>
+  <Card title="Actions" icon="bolt" href="/automations/actions">
+    All the changes you can make to an activity: names, descriptions, gear, privacy, AI content, webhooks, and more.
+  </Card>
+  <Card title="Dynamic Tags" icon="code" href="/automations/dynamic-tags">
+    Inject live activity data — distance, city, weather, music — into names and descriptions using template tags.
+  </Card>
+  <Card title="Sharing" icon="share" href="/automations/sharing">
+    Share your automations with other athletes or use community-created templates.
+  </Card>
+  <Card title="History" icon="clock" href="/automations/history">
+    Review which automations fired, what changed, and how to reprocess past activities.
+  </Card>
+</CardGroup>

@@ -1,0 +1,133 @@
+---
+title: "Setting Up and Managing Gear Components in GearWear"
+sidebarTitle: "Components"
+description: "Add named components to any bike or shoe, set distance and time thresholds, configure pre-alerts, and reset counters after each replacement."
+---
+
+Every bike and pair of shoes is made up of parts that wear out at different rates. GearWear lets you define any number of named components per gear item — a chain, two separate tires, brake pads, cleats, insoles, a suspension fork — and track each one independently. You set the threshold that triggers an alert, and Strautomator handles the rest automatically as your activities sync.
+
+## What you can track
+
+You can create a component with any name, up to 20 characters. Common examples include:
+
+- **Chain** — typically replaced every 2,000–4,000 km depending on drivetrain and conditions
+- **Rear tire / Front tire** — typically replaced every 3,000–8,000 km
+- **Cassette** — typically replaced every 10,000–15,000 km
+- **Brake pads** — distance varies widely by surface and conditions
+- **Cleats** — tracked by distance or hours of use
+- **Insoles** — typically replaced every 500–1,000 km for running shoes
+- Any custom part you name yourself
+
+Each component tracks two independent counters: **distance** (km or miles, matching your Strava unit preference) and **time** (hours of moving time). You can set a threshold on either, both, or neither.
+
+<Note>
+  If you set no alert distance and no alert hours, the component will still accumulate totals, but you will never receive a notification. Set at least one threshold to benefit from automatic alerts.
+</Note>
+
+## Setting up components
+
+<Steps>
+  <Step title="Open the Gear page">
+    Navigate to **Gear** in the main menu. All your Strava bikes and shoes appear here. Gear items that already have a GearWear configuration show their components and current totals. Gear without a configuration appears in the list at the bottom.
+  </Step>
+  <Step title="Create or open a GearWear configuration">
+    Click the **+** button next to a gear item to create a new configuration, or click an existing gear card to open its edit page. On the edit page you see all existing components plus an **Add new component** card.
+  </Step>
+  <Step title="Add a component">
+    Click **Add new component**. A dialog opens with the following fields:
+
+    <ParamField body="Component name" type="string" required>
+      A short, unique name for this part (e.g., `Chain`, `Rear tire`, `Cleats`). Maximum 20 characters. Each component on the same gear item must have a unique name.
+    </ParamField>
+
+    <ParamField body="Current distance" type="number">
+      The distance already accumulated on this component before you start tracking. Set to `0` for a brand-new part; enter the existing mileage if the component is already in use.
+    </ParamField>
+
+    <ParamField body="Alert on (distance)" type="number">
+      The distance threshold that triggers an alert (minimum 100). Set to `0` to disable distance-based alerting for this component.
+    </ParamField>
+
+    <ParamField body="Current hours" type="number">
+      Hours of use already logged on this component before tracking begins.
+    </ParamField>
+
+    <ParamField body="Alert on (hours)" type="number">
+      The hours-of-use threshold that triggers an alert (minimum 20 hours). Set to `0` to disable time-based alerting.
+    </ParamField>
+
+    <ParamField body="Pre-alert at" type="number">
+      Send an early warning when usage reaches this percentage of the threshold. Options are **50%**, **80%**, or disabled. Useful for ordering parts in advance.
+    </ParamField>
+  </Step>
+  <Step title="Save the component">
+    Click **Save component**. The component appears on the gear's edit page with a progress bar showing current usage against the threshold.
+  </Step>
+  <Step title="Save the configuration">
+    After adding all the components you want, click **Save configuration** to persist the entire GearWear setup.
+  </Step>
+</Steps>
+
+### Default components
+
+If you haven't added any components yet, the edit page offers a **Use defaults** button. For bikes the defaults are Chain, Cassette, Rear tire, Front tire, and Brake pads. For shoes the default is a single Shoes component. The suggested alert distances are pre-filled using typical replacement intervals (3,500 km for a chain in metric, 2,200 mi in imperial, and so on). You can adjust any of these values after applying the defaults.
+
+## Alerts and notifications
+
+When a component's running total reaches its alert threshold:
+
+- An **in-app notification** appears in Strautomator.
+- An **email alert** is sent to the address on your account (if you have one set).
+
+If the component continues to accumulate distance or hours past the threshold without being reset, Strautomator sends a **reminder** after a cooldown period so the alert does not become noise.
+
+For **pre-alerts**, a single early-warning notification is sent when the component first crosses the configured percentage (50% or 80%). No repeated pre-alert reminders are sent — only the final threshold alert repeats.
+
+<Tip>
+  Make sure your email address is set in **Account → Email** so you receive alerts by email in addition to in-app notifications. Without an email address, only in-app notifications are created.
+</Tip>
+
+## Resetting a component after replacement
+
+After you replace a component, zero out its counter so tracking starts fresh.
+
+<Steps>
+  <Step title="Open the gear edit page">
+    Go to **Gear** and click on the bike or shoe whose component you replaced.
+  </Step>
+  <Step title="Click Reset">
+    Find the component card and click the **Reset** button. A confirmation dialog shows the current distance and hours about to be cleared.
+  </Step>
+  <Step title="Confirm the reset">
+    Click **Reset** in the dialog. Strautomator records the reset in the component's **history** — storing the date and the total distance and hours at the time of the reset — then sets both counters to zero and clears any pending alert flags.
+  </Step>
+</Steps>
+
+<Note>
+  You can only reset a component once per calendar day. If you reset by mistake, the history entry is still recorded and the component restarts from zero. Resets are not stored when **Privacy Mode** is enabled in your account preferences.
+</Note>
+
+## Viewing component history
+
+Each component keeps a full log of past resets. On the gear edit page, scroll down to the **History** section to see a table of reset dates alongside the cumulative distance and hours at each reset. This gives you a record of how long each part lasted, which is useful for planning future replacements.
+
+## Usage delay
+
+By default, Strautomator waits 2 days before crediting an activity's distance to your gear components. This gives you time to correct the gear assignment on a recently synced activity before the totals are updated.
+
+- **Free plan**: delay is adjustable (default 2 days).
+- **PRO plan**: delay can be reduced to 1 day. Activities whose gear was changed by an automation are updated instantly.
+
+Change the delay in **Account → Preferences → GearWear delay**. The Gear page shows the next scheduled tracking date based on your current setting.
+
+## Enabling and disabling individual components
+
+Each component has a toggle switch on its card. Disabling a component stops it from accumulating distance and time without deleting it or its history. Re-enable it at any time to resume tracking. Disabled components appear at the bottom of the component list, sorted after active ones.
+
+## Editing and deleting components
+
+Click any component card to reopen the edit dialog. You can change the name, adjust thresholds, update current totals, or modify the pre-alert setting. To remove a component entirely, click **Delete** inside the edit dialog and confirm the deletion.
+
+<Warning>
+  Deleting a component permanently removes it and all its history. This action cannot be undone. Use the disable toggle if you want to pause tracking while retaining history.
+</Warning>

@@ -1,0 +1,80 @@
+---
+title: "FTP Estimator: Automatically Update Your Power Threshold"
+sidebarTitle: "FTP Estimator"
+description: "Strautomator analyzes your recent power data to estimate your FTP and can automatically keep your Strava training zones up to date — PRO feature."
+---
+
+Functional Threshold Power (FTP) is the highest average power you can sustain for approximately one hour. It's the foundational number for power-based training zones — get it wrong and every structured workout is calibrated incorrectly. Strautomator analyzes your recent power data and estimates your FTP so you don't have to schedule dedicated test rides.
+
+## How Strautomator estimates your FTP
+
+Strautomator looks at your recent cycling activities that include power data and evaluates your best sustained efforts. It considers how hard you pushed relative to the duration of each ride — shorter all-out efforts and longer steady-state rides are both factored in to build a picture of your current fitness.
+
+The resulting estimate is intentionally conservative: it blends your best recent efforts with your existing Strava FTP value, so a few easy weeks won't cause a dramatic drop in your estimated threshold.
+
+<Info>
+  FTP estimation requires activities that include power data from a power meter, smart trainer, or compatible device. Activities without power data are skipped.
+</Info>
+
+## Manual estimation
+
+Any user — free or PRO — can calculate and optionally push an FTP estimate to Strava:
+
+<Steps>
+  <Step title="Open your Account page">
+    Click your avatar or navigate to **Account** in the top navigation.
+  </Step>
+  <Step title="Open the FTP Estimator">
+    Find the **What's my estimated FTP?** button and click it to open the estimator dialog.
+  </Step>
+  <Step title="Review the estimate">
+    Strautomator displays your calculated FTP based on recent power activities. Review the number and the efforts it was derived from.
+  </Step>
+  <Step title="Save to Strava (optional)">
+    Click **Save to Strava** to push the estimated value to your Strava athlete profile. Your training zones in Strava will update automatically.
+  </Step>
+</Steps>
+
+## Auto-update (PRO)
+
+PRO users can enable automatic FTP updates so Strautomator keeps Strava in sync without any manual action:
+
+<Steps>
+  <Step title="Go to Account Settings">
+    Navigate to **Account** and find the **FTP auto update** toggle in your preferences.
+  </Step>
+  <Step title="Enable auto-update">
+    Toggle **FTP auto update** on. Strautomator will now recalculate your FTP periodically — approximately every two weeks — and update your Strava profile if the estimate differs meaningfully from your current value.
+  </Step>
+  <Step title="Receive notifications">
+    Each time Strautomator updates your FTP, it sends a notification to your Strautomator notification feed with the old and new values.
+  </Step>
+</Steps>
+
+<Warning>
+  FTP auto-update requires you to have at least one recent activity with power data. If you haven't ridden with a power meter recently, Strautomator will not update your FTP.
+</Warning>
+
+## When estimation is most accurate
+
+The FTP estimate is most reliable when:
+
+- You have **recent activities** (within the past few weeks) that include power data
+- Those activities include at least one **hard effort** — a tempo ride, interval session, or challenging climb where you pushed close to your limit
+- Your **Strava FTP is already set** to a reasonable starting value (not zero or a placeholder)
+
+If you've been riding at low intensity for an extended period, the conservative blending toward your existing Strava FTP will help prevent an inaccurate drop.
+
+## Fitness level
+
+Alongside FTP, Strautomator estimates your overall **fitness level** on a 1–5 scale based on your watts per kilogram and recent pace data:
+
+| Level | Label |
+|---|---|
+| 1 | Recreational |
+| 2 | Average |
+| 3 | Athletic |
+| 4 | Pro |
+| 5 | Elite |
+
+Your current fitness level is displayed on your **Account** page. It updates automatically as your FTP estimate changes.

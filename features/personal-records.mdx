@@ -1,0 +1,95 @@
+---
+title: "Personal Records: Track All-Time Bests Across Sports"
+sidebarTitle: "Personal Records"
+description: "Strautomator tracks your all-time bests for distance, speed, power, heart rate, and more — and can trigger automations whenever you break a record."
+---
+
+Strautomator scans every incoming Strava activity and compares it against your stored all-time bests. When you break a record, Strautomator updates the leaderboard, sends you a notification, and makes the `${newRecords}` dynamic tag available in your automations so you can celebrate in your activity description or name.
+
+## What gets tracked
+
+Strautomator tracks the following metrics per sport type:
+
+| Metric | Field |
+|---|---|
+| Distance | Longest activity |
+| Moving time | Longest time in motion |
+| Elevation gain | Most climbing in a single activity |
+| Max speed | Fastest recorded speed |
+| Average speed | Best average speed |
+| Max heart rate | Highest heart rate peak |
+| Average heart rate | Highest average heart rate |
+| Max power | Highest power peak (power meter required) |
+| Average power | Best average power (power meter required) |
+| Calories | Most calories burned |
+
+<Info>
+  Power-based records (max and average watts) are only tracked for activities recorded with a power meter or smart trainer.
+</Info>
+
+## Plan limits
+
+<CardGroup cols={2}>
+  <Card title="Free plan" icon="person-running">
+    Tracks personal records for **Ride**, **Virtual Ride**, **Run**, and **Virtual Run** sport types.
+  </Card>
+  <Card title="PRO plan" icon="trophy">
+    Tracks personal records for **all sport types** supported by Strava.
+  </Card>
+</CardGroup>
+
+## Viewing your records
+
+Navigate to **Dashboard → My Personal Records** to see all of your tracked bests. Records are organized by sport type. Each entry shows:
+
+- **Best value** — your all-time record with a link to the Strava activity where you set it
+- **2nd best value** — the runner-up result for context
+- **Date set** — when the record was established
+- An **edit icon** to manually override the value if needed
+
+## Fetching historical records
+
+Strautomator begins tracking records from the moment you enable the feature. To populate your leaderboard with records from your full Strava history:
+
+<Steps>
+  <Step title="Go to Personal Records">
+    From the **Dashboard**, click **My Personal Records** or navigate directly to **Dashboard → View All Records**.
+  </Step>
+  <Step title="Start the scan">
+    If no records are loaded yet, click **Fetch activity records**. If records are already populated, click **Refresh my records** to re-scan your full history.
+  </Step>
+  <Step title="Wait for the scan to complete">
+    Strautomator processes your entire Strava activity history. This can take up to 4 minutes depending on how many activities you have. The page shows a progress indicator while it runs.
+  </Step>
+</Steps>
+
+## Getting notified of new records
+
+Whenever Strautomator detects a new all-time record from an incoming activity, it sends a notification to your Strautomator notification feed. No configuration is needed — notifications are automatic.
+
+## Using records in automations
+
+Two automation building blocks let you act on new records:
+
+<CardGroup cols={2}>
+  <Card title="Condition: has new all-time records" icon="filter">
+    Add this condition to an automation so it only fires when the current activity broke at least one all-time record.
+  </Card>
+  <Card title="Tag: ${newRecords}" icon="tag">
+    Insert `${newRecords}` into an activity name or description action. Strautomator replaces it with a comma-separated list of the records broken (e.g., `distance, speedMax`).
+  </Card>
+</CardGroup>
+
+**Example:** Create an automation with the condition **has new all-time records** and a **Set activity description** action containing `New records: ${newRecords}!` to automatically annotate your activity whenever you set a personal best.
+
+## Editing a record manually
+
+If a record value looks incorrect — perhaps from a GPS glitch or a sensor error — you can override it:
+
+1. Open **Dashboard → My Personal Records**.
+2. Click the **edit icon** (pencil) next to the record you want to change, or click the value itself.
+3. Enter the correct value and save.
+
+<Warning>
+  Editing a record manually clears the reference to the original activity. The corrected value is used going forward, but the edit cannot be automatically reversed.
+</Warning>

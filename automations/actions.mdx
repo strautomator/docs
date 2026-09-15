@@ -1,0 +1,145 @@
+---
+title: "Automation Actions: Everything You Can Do to Activities"
+sidebarTitle: "Actions"
+description: "A complete reference for every action type in Strautomator — rename, describe, tag, assign gear, hide stats, AI content, webhooks, and more."
+---
+
+Actions are the changes Strautomator makes to your Strava activity once an automation's conditions pass. Each automation can have multiple actions, and Strautomator executes all of them in a single update to Strava. Below is a complete reference grouped by category.
+
+All name and description actions support [dynamic tags](/automations/dynamic-tags) — template placeholders like `${distance}` or `${city}` that are replaced with real activity values before being written to Strava.
+
+---
+
+<Accordion title="Activity Name">
+
+**Set activity name** — Replaces the current name entirely with the value you provide.
+
+*Example:* `${weekday} ${sportType} in ${city} — ${distance}` becomes `Tuesday Ride in Berlin — 42.3 km`.
+
+**Prepend to activity name** — Inserts text at the beginning of the existing name, followed by a space.
+
+*Example:* Prepending `☔` turns `Morning Run` into `☔ Morning Run`.
+
+**Append to activity name** — Adds text to the end of the existing name, preceded by a space.
+
+*Example:* Appending `🔥` turns `Evening Ride` into `Evening Ride 🔥`.
+
+</Accordion>
+
+<Accordion title="Description & Private Notes">
+
+**Set activity description** — Replaces the entire description with the text you specify. Supports dynamic tags and multi-line content.
+
+**Prepend to activity description** — Inserts your text at the top of the existing description.
+
+**Append to activity description** — Adds your text to the bottom of the existing description.
+
+**Set private notes** — Writes to the activity's private notes field (visible only to you, not to followers). Useful for tracking personal data without cluttering the public description.
+
+**Prepend to private notes** — Inserts text at the top of the existing private notes.
+
+**Append to private notes** — Adds text to the bottom of the existing private notes.
+
+*Example:* Appending `Gear: ${gear} | Weather: ${weather.temperature}` to private notes gives you a quick reference log on every activity.
+
+</Accordion>
+
+<Accordion title="AI Content (PRO)">
+
+AI actions generate content automatically using large language models. They are available to PRO users only.
+
+**Generate activity name with AI** — Asks an AI model to write a creative name based on your activity's sport type, distance, speed, elevation, weather, and other data. If AI is unavailable, Strautomator falls back to a built-in template-based name generator.
+
+**Generate a poem with AI** — Produces a short creative piece (poem, story, or description) for the activity and sets it as the description.
+
+**AI insights to private notes** — Analyzes your recent activity history alongside this activity and writes a training insights summary to your private notes. Requires PRO.
+
+**Update activity data with AI (AI auto-process)** — You supply a custom prompt, and the AI decides which activity fields to update (name, description, sport type, etc.) and what to set them to. This is the most flexible AI action — use it for advanced custom workflows.
+
+<Note>
+  All AI actions require a PRO subscription. Free users get access to the template-based name generator only.
+</Note>
+
+</Accordion>
+
+<Accordion title="Classification">
+
+**Tag activity as commute** — Marks the activity as a commute on Strava (equivalent to checking the "Commute" box on the activity edit page). Set value to `true` to tag or `false` to untag.
+
+**Tag activity as virtual (trainer)** — Marks the activity as a virtual/indoor trainer session. Set to `true` or `false`.
+
+**Set workout type** — Assigns a workout type label to the activity. Available types for rides: `Default`, `Race`, `Workout`. For runs: `Default`, `Race`, `Long Run`, `Workout`.
+
+**Change sport type** — Converts the activity to a different sport type. Useful when your device records everything as one sport but you want Strava to reflect the actual activity (e.g., converting a `VirtualRide` to a `Ride` for outdoor segments to register).
+
+</Accordion>
+
+<Accordion title="Gear">
+
+**Set activity gear** — Assigns a specific bike or pair of shoes from your Strava equipment list to the activity. Strautomator validates that the gear type matches the activity (bikes for rides, shoes for runs/walks). You can also set gear to **None** to explicitly remove any assigned gear.
+
+*Example:* An automation that triggers when sport type is `GravelRide` can automatically assign your gravel bike.
+
+</Accordion>
+
+<Accordion title="Map Style">
+
+**Set map style** — Changes how the activity route is displayed on Strava. Choose from the available map display styles in the action editor.
+
+*Example:* Apply a dark satellite map style to all your night rides.
+
+</Accordion>
+
+<Accordion title="Privacy">
+
+These actions control the visibility of your activity and its stats on Strava.
+
+**Mute activity (hide from feed)** — Hides the activity from your followers' home feeds. The activity still appears on your profile, but is not broadcast to others. Set to `true` to mute or `false` to unmute.
+
+*Example:* Automatically mute all activities tagged as commutes so they don't flood your followers' feeds.
+
+**Hide pace** — Removes pace data from the activity's public stats view.
+
+**Hide speed** — Removes speed data from the public stats view.
+
+**Hide calories** — Removes calorie data from the public stats view.
+
+**Hide heart rate** — Removes heart rate data from the public stats view.
+
+**Hide power** — Removes power data from the public stats view.
+
+**Hide start time** — Removes the activity's start time from the public stats view.
+
+<Info>
+  The Hide Stat actions control what is shown on Strava's activity stats panel. The underlying data is not deleted — it is just hidden from the public view.
+</Info>
+
+</Accordion>
+
+<Accordion title="GearWear Components">
+
+These actions let an automation dynamically enable or disable individual GearWear tracking components. Use them to switch between seasonal gear setups automatically.
+
+**Enable gear component** — Turns on a specific component in a GearWear configuration (for example, re-enabling your road tires component at the start of summer).
+
+**Disable gear component** — Turns off a specific component (for example, disabling your summer tires component when you switch to winter tires).
+
+*Example:* Create an automation for `Ride` activities that happen in December through February and disable your summer-specific components automatically.
+
+</Accordion>
+
+<Accordion title="Webhook (PRO)">
+
+**Webhook** — Sends an HTTP request to any URL you specify, with the full activity data as the payload. Use this to push activity data to external services, home automation systems, spreadsheets, or custom integrations.
+
+Supported HTTP methods: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`. The default is `POST`. Specify the method before the URL, separated by a space (e.g., `POST https://example.com/webhook`).
+
+The request body (for POST/PUT/PATCH/DELETE) contains the full activity object as JSON. You can also use dynamic tags in the webhook URL itself to pass specific values as query parameters.
+
+*Example:* `POST https://hooks.example.com/activity?sport=${sportType}&distance=${distance}` sends a POST request with the activity JSON body, while also passing sport type and distance in the URL.
+
+<Note>
+  Webhooks require a PRO subscription.
+</Note>
+
+</Accordion>
